@@ -24,7 +24,7 @@ import { ThemeContext } from "../contexts/ThemeContext";
 
 // Implementing functional componets with useContext hook
 const BookList = () => {
-  const {isLightTheme, light, dark} = useContext(ThemeContext);
+  const { isLightTheme, light, dark } = useContext(ThemeContext);
   const theme = isLightTheme ? light : dark;
   return (
     <div
