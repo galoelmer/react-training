@@ -2,15 +2,28 @@ import React, { useContext, useState } from "react";
 import { BookContext } from "../context/BookContext";
 
 const BookForm = () => {
-  const { addBook } = useContext(BookContext);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
+  // const { addBook } = useContext(BookContext);
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   addBook(title, author);
+  //   setTitle("");
+  //   setAuthor("");
+  // };
+
+  // Implement reducer
+  const { dispatch } = useContext(BookContext);
   const handleSubmit = (e) => {
     e.preventDefault();
-    addBook(title, author);
+    dispatch({
+      type: "ADD_BOOK",
+      book: { title, author },
+    });
     setTitle("");
     setAuthor("");
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -27,7 +40,7 @@ const BookForm = () => {
         onChange={(e) => setAuthor(e.target.value)}
         required
       />
-      <input type="Submit" value="Add Book" readOnly/>
+      <input type="Submit" value="Add Book" readOnly />
     </form>
   );
 };
