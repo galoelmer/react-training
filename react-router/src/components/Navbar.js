@@ -9,8 +9,10 @@ const Navbar = (props) => {
   return (
     <nav>
       <div className="nav-wrapper">
-       <div className="container">
-          <a href="#!" className="brand-logo">React Router</a>
+        <div className="container">
+          <a href="#!" className="brand-logo hide-on-med-and-down">
+            React Router
+          </a>
           <ul className="right">
             <li>
               <NavLink to="/">Home</NavLink>
@@ -22,7 +24,7 @@ const Navbar = (props) => {
               <NavLink to="/contact">Contact</NavLink>
             </li>
           </ul>
-       </div>
+        </div>
       </div>
     </nav>
   );
