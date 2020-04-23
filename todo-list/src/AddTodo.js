@@ -6,14 +6,14 @@ class AddTodo extends Component {
   };
 
   handleChange = (e) => {
-      this.setState({ content: e.target.value, id: Math.random() });
-  }
+    this.setState({ content: e.target.value, id: Math.random() });
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.addTodo(this.state);
     this.setState({ content: '' });
-  }
+  };
 
   render() {
     return (
