@@ -1,5 +1,6 @@
 import React from 'react';
 import Todos from './Todos';
+import AddTodo from './AddTodo';
 
 class App extends React.Component {
   state = {
@@ -14,10 +15,15 @@ class App extends React.Component {
     this.setState({ todos });
   };
 
+  addTodo = (todo) => {
+    this.setState({ todos: [...this.state.todos, todo] });
+  };
+
   render() {
     return (
       <div className="ui raised very padded text container segment">
         <div className="ui blue center aligned huge header">Todo's List</div>
+        <AddTodo addTodo={this.addTodo} />
         <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} />
       </div>
     );
