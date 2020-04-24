@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class Home extends React.Component {
   state = {
@@ -7,7 +8,6 @@ class Home extends React.Component {
   };
   componentDidMount() {
     const randomPageNumber = Math.ceil(Math.random() * 20);
-    console.log(randomPageNumber);
     axios
       .get(
         'https://picsum.photos/v2/list?page=' + randomPageNumber + '&limit=12'
@@ -24,19 +24,22 @@ class Home extends React.Component {
         const regex = /^.+((id)\/\d+)/gm;
         return (
           <div className="col s12 m6 l4" key={image.id}>
-            <div className="card">
-              <div className="card-image">
-                <img
-                  src={
-                    image.download_url.match(regex).toString() + '/480/400.jpg'
-                  }
-                  alt={image.url}
-                />
+            <Link to={'/' + image.id}>
+              <div className="card">
+                <div className="card-image">
+                  <img
+                    src={
+                      image.download_url.match(regex).toString() +
+                      '/480/400.jpg'
+                    }
+                    alt={image.url}
+                  />
+                </div>
+                <div className="card-content">
+                  <p>Author: {image.author}</p>
+                </div>
               </div>
-              <div className="card-action">
-                <a href={image.url}>Author: {image.author}</a>
-              </div>
-            </div>
+            </Link>
           </div>
         );
       })

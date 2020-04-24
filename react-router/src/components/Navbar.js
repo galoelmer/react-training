@@ -1,8 +1,8 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 
 const Navbar = (props) => {
-  // 
+  //
   // setTimeout(() => {
   //   props.history.push("/about");
   // }, 2000);
@@ -10,9 +10,9 @@ const Navbar = (props) => {
     <nav>
       <div className="nav-wrapper">
         <div className="container">
-          <a href="#!" className="brand-logo hide-on-med-and-down">
+          <Link to="/" className="brand-logo hide-on-med-and-down">
             React Router
-          </a>
+          </Link>
           <ul className="right">
             <li>
               <NavLink to="/">Home</NavLink>
