@@ -1,24 +1,26 @@
 import React from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { Link } from 'react-router-dom';
+import  { connect } from 'react-redux';
 
 class Home extends React.Component {
-  state = {
-    images: [],
-  };
-  componentDidMount() {
-    const randomPageNumber = Math.ceil(Math.random() * 20);
-    axios
-      .get(
-        'https://picsum.photos/v2/list?page=' + randomPageNumber + '&limit=12'
-      )
-      .then((res) => {
-        this.setState({ images: res.data });
-      });
-  }
+  // state = {
+  //   images: [],
+  // };
+  // componentDidMount() {
+  //   const randomPageNumber = Math.ceil(Math.random() * 20);
+  //   axios
+  //     .get(
+  //       'https://picsum.photos/v2/list?page=' + randomPageNumber + '&limit=12'
+  //     )
+  //     .then((res) => {
+  //       this.setState({ images: res.data });
+  //     });
+  // }
 
   render() {
-    const images = this.state.images;
+    console.log(this.props)
+    const images = this.props.images;
     const imagesList = images.length ? (
       images.map((image) => {
         const regex = /^.+((id)\/\d+)/gm;
@@ -57,4 +59,10 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    images: state.images
+  }
+}
+
+export default connect(mapStateToProps)(Home);
