@@ -19,7 +19,6 @@ class Home extends React.Component {
   // }
 
   render() {
-    console.log(this.props)
     const images = this.props.images;
     const imagesList = images.length ? (
       images.map((image) => {
