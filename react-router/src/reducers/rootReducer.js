@@ -34,15 +34,16 @@ const initState = {
     },
   ],
 };
+
 const rootReducer = (state = initState, action) => {
   if (action.type === 'DELETE_POST') {
-    let newPosts = state.images.filter(image => {
-      return image.id !== action.id
+    let newPosts = state.images.filter((image) => {
+      return image.id !== action.id;
     });
     return {
       ...state,
-      images: newPosts
-    }
+      images: newPosts,
+    };
   }
   return state;
 };
