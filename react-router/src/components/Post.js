@@ -14,13 +14,19 @@ class Post extends Component {
   //   });
   // }
 
+  handleClick = () => {
+    this.props.deletePost(this.props.post.id);
+    this.props.history.push('/');
+  }
+
   render() {
     const imagePost = this.props.post ? (
       <div className="row">
-        <div className="col s12">
+        <div className="col s12 m10 offset-m1 l8 offset-l2">
           <div className="card">
             <div className="card-image">
               <img
+                className="responsive-img"
                 src={this.props.post.download_url}
                 alt={this.props.post.url}
               />
@@ -28,6 +34,14 @@ class Post extends Component {
             <div className="card-action">
               <a href={this.props.post.url}>Author: {this.props.post.author}</a>
             </div>
+          </div>
+          <div className="center">
+            <button
+              onClick={this.handleClick}
+              className="waves-effect waves-light btn-small"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
@@ -45,4 +59,10 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(Post);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deletePost: (id) => dispatch({type: 'DELETE_POST', id: id})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
