@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <div className="ui container">
       <div className="ui menu">
-        <Link className="item" to="/">
+        <Link className="ui medium header item" to="/">
           Planing App
         </Link>
         <SignedInLinks />
