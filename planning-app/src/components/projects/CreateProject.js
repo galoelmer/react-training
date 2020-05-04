@@ -19,7 +19,7 @@ class CreateProject extends Component {
     return (
       <div className="ui padded three column centered grid">
         <div className="column">
-          <h2 className="ui center aligned teal header">
+          <h2 className="ui center aligned inverted header">
             <div className="content">Create Project</div>
           </h2>
           <form className="ui form ">

@@ -1,23 +1,19 @@
 import React from 'react';
 
-const ProjectSummary = () => {
-    return (
-      <div className="item">
-        <div className="ui card">
-          <div className="content">
-            <div className="header">Cute Dog</div>
-            <div className="meta">2 days ago</div>
-            <div className="description">
-              <p>
-                Cute dogs come in a variety of shapes and sizes. Some cute dogs
-                are cute for their adorable faces, others for their tiny
-                stature, and even others for their massive size.
-              </p>
-            </div>
+const ProjectSummary = ({ project }) => {
+  return (
+    <div className="item">
+      <div className="ui card">
+        <div className="content">
+          <div className="header">{project.title}</div>
+          <div className="meta">2 days ago</div>
+          <div className="description">
+            <p>{project.content}</p>
           </div>
         </div>
       </div>
-    );
-}
- 
+    </div>
+  );
+};
+
 export default ProjectSummary;

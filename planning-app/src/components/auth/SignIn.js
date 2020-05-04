@@ -21,7 +21,7 @@ class SignIn extends Component {
     return (
       <div className="ui padded four column centered grid">
         <div className="column aligned center">
-          <h2 className="ui teal image header">
+          <h2 className="ui inverted header">
             <div className="content">Log-in to your account</div>
           </h2>
           <form className="ui form">
