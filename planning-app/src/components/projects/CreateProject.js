@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createProject } from '../../store/actions/projectActions';
 
-
 class CreateProject extends Component {
   state = {
     title: '',
@@ -16,9 +15,11 @@ class CreateProject extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.createProject(this.state);
+    this.props.history.push('/');
   };
 
   render() {
+    console.log(this.props);
     return (
       <div className="ui padded three column centered grid">
         <div className="column">
@@ -63,8 +64,8 @@ class CreateProject extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createProject: (project) => dispatch(createProject(project))
-  }
-}
+    createProject: (project) => dispatch(createProject(project)),
+  };
+};
 
 export default connect(null, mapDispatchToProps)(CreateProject);
