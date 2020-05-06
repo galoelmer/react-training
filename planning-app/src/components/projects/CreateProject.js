@@ -19,7 +19,6 @@ class CreateProject extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className="ui padded three column centered grid">
         <div className="column">

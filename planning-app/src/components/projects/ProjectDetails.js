@@ -1,10 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect } from 'react-redux-firebase';
 
-const ProjectDetails = (props) => {
-  const { project } = props;
+export default function ProjectDetails(props) {
+  useFirestoreConnect('projects');
+  const projects = useSelector((state) => state.firestore.data.projects);
+  const id = props.match.params.id;
+  const project = projects ? projects[id] : null;
   if (project) {
     return (
       <div className="ui container">
@@ -31,25 +33,13 @@ const ProjectDetails = (props) => {
   } else {
     return (
       <div className="ui container">
-        <div class="ui segment">
-          <div class="ui active inverted dimmer">
-            <div class="ui small text loader">Loading project...</div>
+        <div className="ui segment">
+          <div className="ui active inverted dimmer">
+            <div className="ui small text loader">Loading project...</div>
           </div>
           <p></p>
         </div>
       </div>
     );
   }
-};
-
-const mapStateToProps = (state, ownProps) => {
-  const id = ownProps.match.params.id;
-  const projects = state.firestore.data.projects;
-  const project = projects ? projects[id] : null;
-  return { project: project };
-};
-
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect(() => ['projects'])
-)(ProjectDetails);
+}
