@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signIn } from '../../store/actions/authActions';
 
 class SignIn extends Component {
   state = {
@@ -8,24 +10,26 @@ class SignIn extends Component {
   };
 
   handleChange = (e) => {
-      console.log(e);
+    console.log(e);
     this.setState({ [e.target.id]: e.target.value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    console.log(this.props.signIn(this.state));
   };
 
   render() {
+    console.log(this.props);
+    const { authError } = this.props;
     return (
       <div className="ui padded four column centered grid">
         <div className="column aligned center">
           <h2 className="ui inverted header">
             <div className="content">Log-in to your account</div>
           </h2>
-          <form className="ui form">
-            <div className="ui stacked segment">
+          <form className="ui form error">
+            <div className="ui raised segment">
               <div className="field">
                 <div className="ui left icon input">
                   <i className="user icon"></i>
@@ -56,9 +60,11 @@ class SignIn extends Component {
               >
                 Login
               </div>
-            </div>
 
-            <div className="ui error message"></div>
+              <div className="ui error message">
+                {authError ? <p>Login Failed</p> : null}
+              </div>
+            </div>
           </form>
 
           <div className="ui message">
@@ -70,4 +76,16 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = (state) => {
+  return {
+    authError: state.auth.authError,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (creds) => dispatch(signIn(creds)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
