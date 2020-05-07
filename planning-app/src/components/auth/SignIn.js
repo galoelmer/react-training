@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions';
 
@@ -19,7 +19,8 @@ class SignIn extends Component {
   };
 
   render() {
-    const { authError } = this.props;
+    const { authError, auth } = this.props;
+    if (auth.uid) return <Redirect to="/" />
     return (
       <div className="ui padded four column centered grid">
         <div className="column aligned center">
@@ -77,6 +78,7 @@ class SignIn extends Component {
 const mapStateToProps = (state) => {
   return {
     authError: state.auth.authError,
+    auth: state.firebase.auth
   };
 };
 
