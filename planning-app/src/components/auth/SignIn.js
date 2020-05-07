@@ -10,17 +10,15 @@ class SignIn extends Component {
   };
 
   handleChange = (e) => {
-    console.log(e);
     this.setState({ [e.target.id]: e.target.value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.props.signIn(this.state));
+    this.props.signIn(this.state);
   };
 
   render() {
-    console.log(this.props);
     const { authError } = this.props;
     return (
       <div className="ui padded four column centered grid">
