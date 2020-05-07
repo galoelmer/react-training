@@ -20,7 +20,7 @@ class SignIn extends Component {
 
   render() {
     const { authError, auth } = this.props;
-    if (auth.uid) return <Redirect to="/" />
+    if (auth.uid) return <Redirect to="/" />;
     return (
       <div className="ui padded four column centered grid">
         <div className="column aligned center">
@@ -61,7 +61,7 @@ class SignIn extends Component {
               </div>
 
               <div className="ui error message">
-                {authError ? <p>Login Failed</p> : null}
+                {authError === 'Login failed' ? <p>Login Failed</p> : null}
               </div>
             </div>
           </form>
@@ -78,7 +78,7 @@ class SignIn extends Component {
 const mapStateToProps = (state) => {
   return {
     authError: state.auth.authError,
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
   };
 };
 
