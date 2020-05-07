@@ -28,17 +28,29 @@ const store = createStore(
   )
 );
 
+// react-redux-firebase config
+const rrfConfig = {
+  userProfile: 'users',
+  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+}
+
+// react-redux-firebase Props
 const rrfProps = {
   firebase,
-  config: fbConfig,
+  config: rrfConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance,
+  createFirestoreInstance
 };
 
 function AuthIsLoaded({ children }) {
   const auth = useSelector((state) => state.firebase.auth);
   if (!isLoaded(auth))
-    return <div className="ui inverted massive active centered inline loader container" style={{margin: '25%'}}></div>;
+    return (
+      <div
+        className="ui inverted massive active centered inline loader container"
+        style={{ margin: '25%' }}
+      ></div>
+    );
   return children;
 }
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
 
 const SignedInLinks = (props) => {
+  console.log(props);
   return (
     <div className="right menu">
       <NavLink className="item" to="/create">
@@ -14,7 +15,7 @@ const SignedInLinks = (props) => {
       </a>
       <div className="item">
         <NavLink className="circular ui icon button" to="/">
-          EC
+          {props.profile.initials ? props.profile.initials : '^_^'}
         </NavLink>
       </div>
     </div>
@@ -23,8 +24,8 @@ const SignedInLinks = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signOut: () => dispatch(signOut())
-  }
-}
+    signOut: () => dispatch(signOut()),
+  };
+};
 
 export default connect(null, mapDispatchToProps)(SignedInLinks);
