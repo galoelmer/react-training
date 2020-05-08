@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
 
 const SignedInLinks = (props) => {
-  console.log(props);
   return (
     <div className="right menu">
       <NavLink className="item" to="/create">

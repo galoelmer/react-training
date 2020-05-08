@@ -6,10 +6,24 @@ import { useFirestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
 
 export default function Dashboard() {
-  useFirestoreConnect('projects');
+  useFirestoreConnect([
+    {
+      collection: 'projects',
+      orderBy: ['createdAt', 'desc']
+    },
+    {
+      collection: 'notifications',
+      limit: 5,
+      orderBy: ['time', 'desc']
+    },
+  ]);
   const projects = useSelector((state) => state.firestore.ordered.projects);
   const auth = useSelector((state) => state.firebase.auth);
-  if (!auth.uid) return <Redirect to="/signin" />
+  const notifications = useSelector(
+    (state) => state.firestore.ordered.notifications
+  );
+
+  if (!auth.uid) return <Redirect to="/signin" />;
   return (
     <div className="dashboard ui container">
       <div className="ui grid padded">
@@ -17,7 +31,7 @@ export default function Dashboard() {
           <ProjectList projects={projects} />
         </div>
         <div className="six wide column">
-          <Notifications />
+          <Notifications notifications={notifications} />
         </div>
       </div>
     </div>

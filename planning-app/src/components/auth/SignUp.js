@@ -88,7 +88,7 @@ class SignUp extends Component {
             </div>
 
             <div className="ui error message">
-              {authError ? <p>{authError}</p> : null}
+              {authError !== "Login failed" ? <p>{authError}</p> : null}
             </div>
           </form>
 
