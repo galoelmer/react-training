@@ -1,13 +1,11 @@
 import React from 'react';
-import { List } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 
 export default function Job({ job }) {
   return (
-    <div>
-      <List horizontal relaxed>
-        <List.Item>{job.title}</List.Item>
-        <List.Item>{job.company}</List.Item>
-      </List>
-    </div>
+    <Segment.Group horizontal>
+      <Segment>{job.title}</Segment>
+      <Segment>{job.company}</Segment>
+    </Segment.Group>
   );
 }
