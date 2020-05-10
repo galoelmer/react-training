@@ -16,7 +16,7 @@ async function fetchGitHub() {
     try {
       const res = await fetch(`${baseUrl}?page=${onPage}`);
       const jobs = await res.json();
-      allJobs.push(...jobs);
+      allJobs.push(...jobs); 
       resultCount = jobs.length;
       console.log('Got', resultCount, 'jobs');
       onPage++;
@@ -47,6 +47,6 @@ async function fetchGitHub() {
   console.log({ success });
 }
 
-fetchGitHub();
+//fetchGitHub();
 
 module.exports = fetchGitHub;
