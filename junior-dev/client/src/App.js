@@ -20,7 +20,7 @@ function App() {
   }, [])
 
   return (
-    <Container textAlign="center">
+    <Container className="app" textAlign="center">
       <Jobs jobs={jobsList} />
     </Container>
   );
