@@ -21,7 +21,7 @@ function App() {
 
   return (
     <Container textAlign="center">
-      <Jobs jobs={jobsList}/>
+      <Jobs jobs={jobsList} />
     </Container>
   );
 }
