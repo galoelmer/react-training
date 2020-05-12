@@ -23,11 +23,12 @@ export default function Jobs({ jobs }) {
 
   const totalJobs = jobs.length;
   const jobsOnPage = jobs.slice(activeStep * 21, activeStep * 21 + 21);
+ 
   return (
     <Container>
       <div>
         <Header
-          style={{'font-size': '4em', 'text-shadow':'2px 2px 6px rgba(0,0,0,0.3)', 'font-family': 'Nunito'}}
+          style={{'fontSize': '4em', 'textShadow':'2px 2px 6px rgba(0,0,0,0.3)', 'fontFamily': 'Nunito'}}
           as="h1"
         >
           Entry Level Developer Jobs
@@ -36,7 +37,7 @@ export default function Jobs({ jobs }) {
       <Segment compact>
         <Card.Group centered>
           {jobsOnPage.length !== 0 ? (
-            jobsOnPage.map((job, i) => <Job job={job} key={i} />)
+            jobsOnPage.map((job) => <Job job={job} key={job.id} />)
           ) : (
             <Header as="h1" textAlign="center">
               No Jobs
