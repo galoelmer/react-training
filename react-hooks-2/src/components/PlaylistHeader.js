@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PlaylistHeader = (props) => {
-  return <>Playlist Header</>;
+  return <div>Playlist Header</div>;
 };
 
 export default PlaylistHeader;

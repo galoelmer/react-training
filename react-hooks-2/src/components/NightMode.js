@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NightMode = (pros) => {
-  return <>NightMode</>;
+  return <div>NightMode</div>;
 };
 
 export default NightMode;

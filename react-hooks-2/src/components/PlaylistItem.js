@@ -1,6 +1,6 @@
 import React from 'react';
 const PlaylistItem = (props) => {
-  return <>Playlist Item</>;
+  return <div>Playlist Item</div>;
 };
 
 export default PlaylistItem;

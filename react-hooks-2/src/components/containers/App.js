@@ -1,26 +1,24 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import WbnPlayer from './WbnPlayer';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    minWidth: '320px',
-  },
-}));
+import GlobalStyles from "../styles/GlobalStyles";
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 function App() {
-  const classes = useStyles();
+  const classes = GlobalStyles();
   return (
-    <Container className={classes.root}>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={WbnPlayer} />
-          <Route exact path="/:activeVideo" component={WbnPlayer} />
-        </Switch>
-      </Router>
-    </Container>
+   <>
+   <CssBaseline />
+      <Container className={classes.root}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={WbnPlayer} />
+            <Route exact path="/:activeVideo" component={WbnPlayer} />
+          </Switch>
+        </Router>
+      </Container>
+   </>
   );
 }
 
