@@ -7,7 +7,7 @@ import StylePlaylist from '../styles/StylePlaylist';
 const Playlist = (props) => {
   return (
     <div className={StylePlaylist().root}>
-      <NightMode />
+      <NightMode theme={props}/>
       <PlaylistHeader />
       <PlaylistItems />
     </div>
