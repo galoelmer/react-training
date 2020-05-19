@@ -4,10 +4,11 @@ import PlaylistItems from './PlaylistItems';
 import NightMode from '../NightMode';
 import StylePlaylist from '../styles/StylePlaylist';
 
-const Playlist = (props) => {
+const Playlist = () => {
+  const classes = StylePlaylist();
   return (
-    <div className={StylePlaylist().root}>
-      <NightMode theme={props}/>
+    <div className={classes.root}>
+      <NightMode />
       <PlaylistHeader />
       <PlaylistItems />
     </div>

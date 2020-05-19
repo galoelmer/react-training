@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { ThemeProvider } from '@material-ui/core';
+import { Context } from './containers/WbnPlayer';
 
-const NightMode = (props) => {
+const NightMode = () => {
+  const { nightMode, setNightMode } = useContext(Context);
   return (
-    <FormControlLabel
-      control={
-        <Switch
-          checked={props.theme.nightMode}
-          onChange={() => props.theme.setNightMode(!props.theme.nightMode)}
-          name="nightMode"
-          color="primary"
-        />
-      }
-      label="Night Mode"
-    />
+    <FormGroup row>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={nightMode}
+            onChange={() => setNightMode(!nightMode)}
+            name="nightMode"
+            color="primary"
+          />
+        }
+        label="Night Mode"
+      />
+    </FormGroup>
   );
 };
 
