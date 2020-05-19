@@ -11,12 +11,15 @@ export const Context = createContext();
 const WbnPlayer = () => {
   const videos = JSON.parse(document.querySelector('[name="videos"]').value);
   // const [nightMode, setNightMode] = useState(false);
+
   const [state, setState] = useState({
     videos: videos.playlist,
     activeVideo: videos.playlist[0],
     playlistId: videos.playlistId,
     autoplay: false,
   });
+
+  console.log(state);
 
   // const darkTheme = createMuiTheme({
   //   palette: {
