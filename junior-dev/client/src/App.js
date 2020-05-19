@@ -20,8 +20,8 @@ function App() {
   }, [])
 
   return (
-    <Container textAlign="center">
-      <Jobs jobs={jobsList}/>
+    <Container className="app" textAlign="center">
+      <Jobs jobs={jobsList} />
     </Container>
   );
 }

@@ -1,40 +1,57 @@
-import React, { Component } from 'react';
-import { Container, Header, Pagination, Segment } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import {
+  Card,
+  Container,
+  Header,
+  Pagination,
+  Segment,
+} from 'semantic-ui-react';
 import Job from './Job';
 
-export default class Jobs extends Component {
-  state = { activePage: 1, activeStep: 0 };
+export default function Jobs({ jobs }) {
+  const [activePage, setActivePage] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
 
-  handlePaginationChange = (e, { activePage }) => {
-    if (activePage > this.state.activePage) {
-      this.setState({ activeStep: activePage - 1 });
+  const prevActivePage = activePage;
+  useEffect(() => {
+    if (activePage > prevActivePage) {
+      setActiveStep(activePage - 1);
     } else {
-      this.setState({ activeStep: activePage - 1 });
+      setActiveStep(activePage - 1);
     }
-    this.setState({ activePage });
-  };
+  }, [activePage, prevActivePage]);
 
-  render() {
-    const jobsList = this.props.jobs;
-    const { activePage, activeStep } = this.state;
-    const totalJobs = jobsList.length;
-    const jobsOnPage = jobsList.slice(activeStep * 20, activeStep * 20 + 20);
-    return (
-      <Container>
-        <div>
-          <Header as="h1">Entry Level Developer Jobs</Header>
-        </div>
-        <Segment raised>
-          {jobsOnPage.map((job, i) => (
-            <Job job={job} key={i} />
-          ))}
-        </Segment>
-        <Pagination
-          activePage={activePage}
-          onPageChange={this.handlePaginationChange}
-          totalPages={Math.ceil(totalJobs / 20)}
-        />
-      </Container>
-    );
-  }
+  const totalJobs = jobs.length;
+  const jobsOnPage = jobs.slice(activeStep * 21, activeStep * 21 + 21);
+ 
+  return (
+    <Container>
+      <div>
+        <Header
+          style={{'fontSize': '4em', 'textShadow':'2px 2px 6px rgba(0,0,0,0.3)', 'fontFamily': 'Nunito'}}
+          as="h1"
+        >
+          Entry Level Developer Jobs
+        </Header>
+      </div>
+      <Segment compact>
+        <Card.Group centered>
+          {jobsOnPage.length !== 0 ? (
+            jobsOnPage.map((job) => <Job job={job} key={job.id} />)
+          ) : (
+            <Header as="h1" textAlign="center">
+              No Jobs
+            </Header>
+          )}
+        </Card.Group>
+      </Segment>
+
+      {/* //  TODO: Pagination component causing a warning message @galoelmer */}
+      <Pagination
+        activePage={activePage}
+        onPageChange={(e, { activePage }) => setActivePage(activePage)}
+        totalPages={Math.ceil(totalJobs / 21)}
+      />
+    </Container>
+  );
 }
