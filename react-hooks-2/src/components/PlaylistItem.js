@@ -7,7 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 const PlaylistItem = ({ video }) => {
   return (
-    <>
+    <div>
       <ListItem button>
         <ListItemAvatar>
           <Avatar>{video.num}</Avatar>
@@ -18,7 +18,7 @@ const PlaylistItem = ({ video }) => {
         </Avatar>
       </ListItem>
       <Divider />
-    </>
+    </div>
   );
 };
 

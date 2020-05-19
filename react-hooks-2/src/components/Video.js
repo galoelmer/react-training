@@ -6,7 +6,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 const Video = () => {
   const { state } = useContext(Context);
   const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
-  console.log(matches);
+
   return (
     <div style={{ height: matches ? '400px' : '250px' }}>
       <ReactPlayer

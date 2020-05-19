@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-//import StylePlaylistHeader from './styles/StylePlaylistHeader';
+import { Context } from './containers/WbnPlayer';
 
 const PlaylistHeader = () => {
-  //const classes = StylePlaylistHeader();
+  const { state } = useContext(Context);
+
   return (
     <Paper
-      variant="outlined"
       style={{
         display: 'flex',
         justifyContent: 'space-around',
-        padding: '3px',
+        padding: '10px 0',
+        border: '1px solid gray',
       }}
     >
-      <Typography variant="subtitle1" gutterBottom>
-        Current video title goes here
-      </Typography>
-      <Chip label="2/9" />
+      <Typography variant="h6">{state.activeVideo.title}</Typography>
+      <Chip label={`${state.activeVideo.num} / ${state.videos.length}`} />
     </Paper>
   );
 };

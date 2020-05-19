@@ -10,7 +10,6 @@ export const Context = createContext();
 const WbnPlayer = ({ match, location, history }) => {
   const classes = StyleWbnPlayer();
   const videos = JSON.parse(document.querySelector('[name="videos"]').value);
-  console.log(videos);
 
   const [state, setState] = useState({
     videos: videos.playlist,
@@ -28,7 +27,7 @@ const WbnPlayer = ({ match, location, history }) => {
       setState((prev) => ({
         ...prev,
         activeVideo: prev.videos[newActiveVideo],
-        // autoplay: location.autoplay,
+        autoplay: location.autoplay,
       }));
     } else {
       history.push({
@@ -44,7 +43,7 @@ const WbnPlayer = ({ match, location, history }) => {
     state.videos,
   ]);
 
-  return (
+  return state.videos !== null ? (
     <Context.Provider value={{ state, setState }}>
       <div className={classes.root}>
         <Grid container spacing={3}>
@@ -61,7 +60,7 @@ const WbnPlayer = ({ match, location, history }) => {
         </Grid>
       </div>
     </Context.Provider>
-  );
+  ) : null;
 };
 
 export default WbnPlayer;
