@@ -2,9 +2,9 @@ import React, { useState, createContext } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import WbnPlayer from './WbnPlayer';
 import Container from '@material-ui/core/Container';
-import GlobalStyles from '../styles/GlobalStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import GlobalStyles from '../styles/GlobalStyles';
 
 export const ThemeContext = createContext();
 function App() {
