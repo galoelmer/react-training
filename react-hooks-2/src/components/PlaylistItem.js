@@ -13,7 +13,9 @@ const PlaylistItem = ({ video }) => {
           <Avatar>{video.num}</Avatar>
         </ListItemAvatar>
         <ListItemText primary={video.title} />
-        <Avatar style={{fontSize: '14px'}} variant="rounded">{video.duration}</Avatar>
+        <Avatar style={{ fontSize: '14px' }} variant="rounded">
+          {video.duration}
+        </Avatar>
       </ListItem>
       <Divider />
     </>

@@ -2,12 +2,13 @@ import React, { useContext } from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { Context } from './containers/WbnPlayer';
+import { ThemeContext } from './containers/App';
 
 const NightMode = () => {
-  const { nightMode, setNightMode } = useContext(Context);
+  const { nightMode, setNightMode } = useContext(ThemeContext);
+
   return (
-    <FormGroup row>
+    <FormGroup row style={{marginLeft: '20px'}}>
       <FormControlLabel
         control={
           <Switch

@@ -4,8 +4,6 @@ const stylePlaylistItems = makeStyles({
   root: {
     padding: '0 20px',
     'overflow-y': 'auto',
-    height: '28vw',
-    maxHeight: '500px',
   },
 });
 

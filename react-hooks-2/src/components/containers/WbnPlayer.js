@@ -1,7 +1,7 @@
 import React, { useState, createContext } from 'react';
 import Video from '../Video';
 import Playlist from './Playlist';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import StyleWbnPlayer from '../styles/StyleWbnPlayer';
@@ -10,7 +10,7 @@ export const Context = createContext();
 
 const WbnPlayer = () => {
   const videos = JSON.parse(document.querySelector('[name="videos"]').value);
-  const [nightMode, setNightMode] = useState(false);
+  // const [nightMode, setNightMode] = useState(false);
   const [state, setState] = useState({
     videos: videos.playlist,
     activeVideo: videos.playlist[0],
@@ -18,16 +18,16 @@ const WbnPlayer = () => {
     autoplay: false,
   });
 
-  const darkTheme = createMuiTheme({
-    palette: {
-      type: nightMode ? 'dark' : 'light',
-    },
-  });
+  // const darkTheme = createMuiTheme({
+  //   palette: {
+  //     type: nightMode ? 'dark' : 'light',
+  //   },
+  // });
   const classes = StyleWbnPlayer();
 
   return (
-    <Context.Provider value={{ nightMode, setNightMode, state, setState }}>
-      <ThemeProvider theme={darkTheme}>
+    <Context.Provider value={{ state, setState }}>
+      {/* <ThemeProvider theme={darkTheme}> */}
         <div className={classes.root}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={7}>
@@ -42,7 +42,7 @@ const WbnPlayer = () => {
             </Grid>
           </Grid>
         </div>
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
     </Context.Provider>
   );
 };

@@ -6,7 +6,6 @@ const StyleWbnPlayer = makeStyles((theme) => ({
     margin: '0 auto',
     display: 'flex',
     flexDirection: 'row',
-    maxHeight: '863px',
     transition: 'all 0.5s ease',
     flexGrow: 1,
     padding: theme.spacing(2),

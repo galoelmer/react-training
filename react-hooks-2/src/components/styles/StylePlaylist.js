@@ -4,7 +4,7 @@ const StylePlaylist = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
 });
 
