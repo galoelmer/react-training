@@ -1,12 +1,17 @@
 import React from 'react';
-import { TextField, Button, Grid } from '@material-ui/core';
+import { Button, Grid, Input } from '@material-ui/core';
 
-const Form = () => {
+const Form = ({ getRecipe }) => {
   return (
-    <form>
+    <form onSubmit={getRecipe}>
       <Grid container alignItems="center" justify="center">
-        <TextField margin="normal" placeholder="Search" />
-        <Button size="small" variant="contained" color="secondary">
+        <Input placeholder="Search" name="recipeName" />
+        <Button
+          type="submit"
+          size="small"
+          variant="contained"
+          color="secondary"
+        >
           Search
         </Button>
       </Grid>
