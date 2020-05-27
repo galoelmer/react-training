@@ -6,6 +6,10 @@ import Form from './components/Form';
 import { Container, CssBaseline } from '@material-ui/core';
 import RecipeCard from './components/RecipeCard';
 
+//TEST DATA
+import data from './testData';
+const testData = data.map(({recipe}) => recipe);
+
 const { REACT_APP_API_ID: API_ID, REACT_APP_API_KEY: API_KEY } = process.env;
 
 class App extends React.Component {
@@ -36,6 +40,9 @@ class App extends React.Component {
     } else {
       console.log('No Recipe found');
     }
+
+    // Setting state with Test data
+    // this.setState({recipes: testData})
   };
 
   render() {

@@ -3,18 +3,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Img } from 'react-image';
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
   media: {
-    height: 140,
+    height: 180,
+    width: '100%',
   },
   container: {
     margin: '20px auto',
@@ -23,6 +25,13 @@ const useStyles = makeStyles({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+  loader: {
+    width: '100%',
+    height: 180,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -35,10 +44,14 @@ export default function RecipeCard({ recipes }) {
         {recipes.map((recipe, i) => (
           <Grid key={i} item xs={12} sm={6} md={3}>
             <Card>
-              <CardMedia
+              <Img
+                src={recipe.image}
+                loader={
+                  <div className={classes.loader}>
+                    <CircularProgress />
+                  </div>
+                }
                 className={classes.media}
-                image={recipe.image}
-                title={recipe.label}
               />
               <CardContent>
                 <Typography
