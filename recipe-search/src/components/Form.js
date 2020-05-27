@@ -1,13 +1,18 @@
 import React from 'react';
-import { Button, Grid, Input } from '@material-ui/core';
+import { Button, Grid, TextField } from '@material-ui/core';
 
-const Form = ({ getRecipe }) => {
+const Form = ({ getRecipe, inputRef, inputError }) => {
   return (
-    <form onSubmit={getRecipe} style={{ margin: 15 }}>
+    <form onSubmit={getRecipe} style={{ margin: 15 }} noValidate>
       <Grid container alignItems="center" justify="center">
-        <Input
-          placeholder="Search"
+        <TextField
+          inputRef={inputRef}
+          autoFocus
+          label="Type ingredient"
+          type="text"
           name="recipeName"
+          error={inputError}
+          helperText={inputError ? "Recipe not found" : null}
         />
         <Button
           type="submit"
