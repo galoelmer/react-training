@@ -28,34 +28,31 @@ class App extends React.Component {
     const corsURL = 'https://cors-anywhere.herokuapp.com/';
     const apiURL = `https://api.edamam.com/search?app_id=${API_ID}&app_key=${API_KEY}&q=${recipeName}&to=12`;
     // Check for empty input recipe name
-    if (recipeName.trim().length !== 0) {
-      try {
-        const apiCall = await fetch(corsURL + apiURL);
-        const { hits } = await apiCall.json();
-        const recipeList = hits.map(({ recipe }) => recipe);
-        this.setState({ ...this.state, inputError: false });
+    // if (recipeName.trim().length !== 0) {
+    //   try {
+    //     const apiCall = await fetch(corsURL + apiURL);
+    //     const { hits } = await apiCall.json();
+    //     const recipeList = hits.map(({ recipe }) => recipe);
+    //     this.setState({ ...this.state, inputError: false });
 
-        if (recipeList.length) {
-          this.setState({ recipes: recipeList });
-        } else {
-          this.setState({ ...this.state, inputError: true });
-          throw new Error('Whoops! No Recipe Found');
-        }
-      } catch (err) {
-        this.setState({ ...this.state, inputError: true });
-        console.log(err);
-      }
-    } else {
-      this.setState({ ...this.state, inputError: true });
-      console.log('No Recipe found');
-    }
-    this.inputRef.current.value = '';
+    //     if (recipeList.length) {
+    //       this.setState({ recipes: recipeList });
+    //     } else {
+    //       this.setState({ ...this.state, inputError: true });
+    //       throw new Error('Whoops! No Recipe Found');
+    //     }
+    //   } catch (err) {
+    //     this.setState({ ...this.state, inputError: true });
+    //     console.log(err);
+    //   }
+    // } else {
+    //   this.setState({ ...this.state, inputError: true });
+    //   console.log('No Recipe found');
+    // }
+    // this.inputRef.current.value = '';
     
     // Setting state with Test data
-    // if (!this.inputRef.current.value.length) {
-
-    // }
-    // this.setState({ recipes: testData });
+    this.setState({ recipes: testData });
   };
 
   render() {

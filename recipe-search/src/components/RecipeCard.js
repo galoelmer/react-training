@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,16 +8,16 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Img } from 'react-image';
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
-  media: {
-    height: 180,
+  media: (imgProps) => ({
+    height: 300,
     width: '100%',
-  },
+    opacity: imgProps.opacity
+  }),
   container: {
     margin: '20px auto',
   },
@@ -27,32 +27,42 @@ const useStyles = makeStyles({
     textOverflow: 'ellipsis',
   },
   loader: {
-    width: '100%',
-    height: 180,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: "absolute",
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
   },
 });
 
 export default function RecipeCard({ recipes }) {
-  const classes = useStyles();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  // const [isValidSrc, setIsValidSrc] = useState(!!recipes.image);
+  const imgProps = { opacity: imageLoaded ? '1' : '0' };
+  const classes = useStyles(imgProps);
 
   return (
     <Container className={classes.container}>
       <Grid container spacing={4}>
         {recipes.map((recipe, i) => (
           <Grid key={i} item xs={12} sm={6} md={3}>
-            <Card>
-              <Img
-                src={recipe.image}
-                loader={
-                  <div className={classes.loader}>
-                    <CircularProgress />
-                  </div>
-                }
-                className={classes.media}
-              />
+            <Card style={{position: 'relative'}}>
+              {!!recipe.image ? (
+                <img
+                  className={`${classes.media}`}
+                  src={recipe.image}
+                  // src="https://picsum.photos/3000"
+                  alt={recipe.image}
+                  onLoad={() => setImageLoaded(true)}
+                  // onError={()=> setIsValidSrc(false)}
+                />
+              ) : (
+                <div>Loading...</div>
+              )}
+              {!!recipe.image && !imageLoaded && (
+                <div className={classes.loader}>
+                  <CircularProgress />
+                </div>
+              )}
               <CardContent>
                 <Typography
                   variant="h6"
