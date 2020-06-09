@@ -7,10 +7,9 @@ import { Container, CssBaseline } from '@material-ui/core';
 import RecipeCard from './components/RecipeCard';
 
 //TEST DATA
-import data from './testData';
-const testData = data.map(({ recipe }) => recipe);
+import testData from './testData';
 
-const { REACT_APP_API_ID: API_ID, REACT_APP_API_KEY: API_KEY } = process.env;
+const { REACT_APP_API_KEY: API_KEY } = process.env;
 
 class App extends React.Component {
   constructor(props) {
@@ -26,13 +25,12 @@ class App extends React.Component {
     e.preventDefault();
     const recipeName = this.inputRef.current.value;
     const corsURL = 'https://cors-anywhere.herokuapp.com/';
-    const apiURL = `https://api.edamam.com/search?app_id=${API_ID}&app_key=${API_KEY}&q=${recipeName}&to=12`;
+    const apiURL = `https://api.spoonacular.com/recipes/search?query=${recipeName}&number=12&apiKey=${API_KEY}`;
     // Check for empty input recipe name
     // if (recipeName.trim().length !== 0) {
     //   try {
     //     const apiCall = await fetch(corsURL + apiURL);
-    //     const { hits } = await apiCall.json();
-    //     const recipeList = hits.map(({ recipe }) => recipe);
+    //     const { results: recipeList } = await apiCall.json();
     //     this.setState({ ...this.state, inputError: false });
 
     //     if (recipeList.length) {
@@ -49,8 +47,8 @@ class App extends React.Component {
     //   this.setState({ ...this.state, inputError: true });
     //   console.log('No Recipe found');
     // }
-    // this.inputRef.current.value = '';
-    
+    this.inputRef.current.value = '';
+
     // Setting state with Test data
     this.setState({ recipes: testData });
   };

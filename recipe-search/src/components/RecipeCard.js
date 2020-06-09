@@ -45,13 +45,13 @@ export default function RecipeCard({ recipes }) {
       <Grid container spacing={4}>
         {recipes.map((recipe, i) => (
           <Grid key={i} item xs={12} sm={6} md={3}>
-            <Card style={{position: 'relative'}}>
+            <Card style={{ position: 'relative' }}>
               {!!recipe.image ? (
                 <img
                   className={`${classes.media}`}
-                  src={recipe.image}
+                  src={`https://spoonacular.com/recipeImages/${recipe.image}`}
                   // src="https://picsum.photos/3000"
-                  alt={recipe.image}
+                  alt={recipe.title}
                   onLoad={() => setImageLoaded(true)}
                   // onError={()=> setIsValidSrc(false)}
                 />
@@ -70,13 +70,13 @@ export default function RecipeCard({ recipes }) {
                   align="center"
                   className={classes.recipeName}
                 >
-                  {recipe.label}
+                  {recipe.title}
                 </Typography>
               </CardContent>
 
               <CardActions>
                 <Button
-                  href={recipe.url}
+                  href={recipe.sourceUrl}
                   size="small"
                   color="secondary"
                   variant="outlined"
