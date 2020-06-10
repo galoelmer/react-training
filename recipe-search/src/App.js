@@ -7,7 +7,7 @@ import { Container, CssBaseline } from '@material-ui/core';
 import RecipeCard from './components/RecipeCard';
 
 //TEST DATA
-import testData from './testData';
+import {recipeList as testData} from './testData';
 
 const { REACT_APP_API_KEY: API_KEY } = process.env;
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -14,9 +15,9 @@ const useStyles = makeStyles({
     maxWidth: 345,
   },
   media: (imgProps) => ({
-    height: 300,
+    height: 240,
     width: '100%',
-    opacity: imgProps.opacity
+    opacity: imgProps.opacity,
   }),
   container: {
     margin: '20px auto',
@@ -27,10 +28,14 @@ const useStyles = makeStyles({
     textOverflow: 'ellipsis',
   },
   loader: {
-    position: "absolute",
+    position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+  },
+  recipeButton: {
+    textDecoration: 'none',
+    color: 'tomato',
   },
 });
 
@@ -43,8 +48,8 @@ export default function RecipeCard({ recipes }) {
   return (
     <Container className={classes.container}>
       <Grid container spacing={4}>
-        {recipes.map((recipe, i) => (
-          <Grid key={i} item xs={12} sm={6} md={3}>
+        {recipes.map((recipe) => (
+          <Grid key={recipe.id} item xs={12} sm={6} md={3}>
             <Card style={{ position: 'relative' }}>
               {!!recipe.image ? (
                 <img
@@ -76,13 +81,20 @@ export default function RecipeCard({ recipes }) {
 
               <CardActions>
                 <Button
-                  href={recipe.sourceUrl}
                   size="small"
                   color="secondary"
                   variant="outlined"
                   fullWidth
                 >
-                  View Recipe
+                  <Link
+                    className={`${classes.recipeButton}`}
+                    to={{
+                      pathname: `/recipe/${recipe.id}`,
+                      state: { recipeId: recipe.id },
+                    }}
+                  >
+                    View Recipe
+                  </Link>
                 </Button>
               </CardActions>
             </Card>
