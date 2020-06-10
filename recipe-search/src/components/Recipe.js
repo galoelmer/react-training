@@ -37,15 +37,19 @@ class Recipe extends React.Component {
   };
 
   componentDidMount = async() => {
-    const { REACT_APP_API_KEY: API_KEY } = process.env;
-    const corsURL = 'https://cors-anywhere.herokuapp.com/';
-    const apiURL = `https://api.spoonacular.com/recipes/${this.props.location.state.recipeId}/information?apiKey=${API_KEY}`;
-    const apiCall = await fetch(corsURL + apiURL);
-    const recipe = await apiCall.json();
-    this.setState({activeRecipe: recipe});
+    // const { REACT_APP_API_KEY: API_KEY } = process.env;
+    // const corsURL = 'https://cors-anywhere.herokuapp.com/';
+    // const apiURL = `https://api.spoonacular.com/recipes/${this.props.location.state.recipeId}/information?apiKey=${API_KEY}`;
+    // const apiCall = await fetch(corsURL + apiURL);
+    // const recipe = await apiCall.json();
+    // /* Remove unnecessary text from recipe summary */
+    // const regex = /.+(?= All things considered)/gim;
+    // recipe.summary = recipe.summary.match(regex);
+
+    // this.setState({activeRecipe: recipe});
 
     // Test Data
-    // this.setState({ activeRecipe: testData });
+    this.setState({ activeRecipe: testData });
   };
 
   render() {
