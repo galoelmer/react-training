@@ -1,3 +1,4 @@
 import React from 'react';
+import { StoriesContainer } from './containers/StoriesContainer';
 
-export const App = () => <h2>Hacker News</h2>
+export const App = () => <StoriesContainer />
