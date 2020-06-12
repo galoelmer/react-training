@@ -41,7 +41,6 @@ const useStyles = makeStyles({
 
 export default function RecipeCard({ recipes }) {
   const [imageLoaded, setImageLoaded] = useState(false);
-  // const [isValidSrc, setIsValidSrc] = useState(!!recipes.image);
   const imgProps = { opacity: imageLoaded ? '1' : '0' };
   const classes = useStyles(imgProps);
 
@@ -55,10 +54,8 @@ export default function RecipeCard({ recipes }) {
                 <img
                   className={`${classes.media}`}
                   src={`https://spoonacular.com/recipeImages/${recipe.image}`}
-                  // src="https://picsum.photos/3000"
                   alt={recipe.title}
                   onLoad={() => setImageLoaded(true)}
-                  // onError={()=> setIsValidSrc(false)}
                 />
               ) : (
                 <div>Loading...</div>

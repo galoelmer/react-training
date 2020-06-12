@@ -6,9 +6,6 @@ import Form from './components/Form';
 import { Container, CssBaseline } from '@material-ui/core';
 import RecipeCard from './components/RecipeCard';
 
-//TEST DATA
-import {recipeList as testData} from './testData';
-
 const { REACT_APP_API_KEY: API_KEY } = process.env;
 
 class App extends React.Component {
@@ -27,30 +24,43 @@ class App extends React.Component {
     const corsURL = 'https://cors-anywhere.herokuapp.com/';
     const apiURL = `https://api.spoonacular.com/recipes/search?query=${recipeName}&number=12&apiKey=${API_KEY}`;
     // Check for empty input recipe name
-    // if (recipeName.trim().length !== 0) {
-    //   try {
-    //     const apiCall = await fetch(corsURL + apiURL);
-    //     const { results: recipeList } = await apiCall.json();
-    //     this.setState({ ...this.state, inputError: false });
+    if (recipeName.trim().length !== 0) {
+      try {
+        const apiCall = await fetch(corsURL + apiURL);
+        const { results: recipeList } = await apiCall.json();
+        this.setState({ ...this.state, inputError: false });
 
-    //     if (recipeList.length) {
-    //       this.setState({ recipes: recipeList });
-    //     } else {
-    //       this.setState({ ...this.state, inputError: true });
-    //       throw new Error('Whoops! No Recipe Found');
-    //     }
-    //   } catch (err) {
-    //     this.setState({ ...this.state, inputError: true });
-    //     console.log(err);
-    //   }
-    // } else {
-    //   this.setState({ ...this.state, inputError: true });
-    //   console.log('No Recipe found');
-    // }
+        if (recipeList.length) {
+          this.setState({ recipes: recipeList });
+        } else {
+          this.setState({ ...this.state, inputError: true });
+          throw new Error('Whoops! No Recipe Found');
+        }
+      } catch (err) {
+        this.setState({ ...this.state, inputError: true });
+        console.log(err);
+      }
+    } else {
+      this.setState({ ...this.state, inputError: true });
+      console.log('No Recipe found');
+    }
     this.inputRef.current.value = '';
 
     // Setting state with Test data
-    this.setState({ recipes: testData });
+    // this.setState({ recipes: testData });
+  };
+
+  componentDidMount = () => {
+    if (!!localStorage.getItem('recipes')) {
+      const json = localStorage.getItem('recipes');
+      const recipes = JSON.parse(json);
+      this.setState({ recipes });
+    }
+  };
+
+  componentDidUpdate = () => {
+    const recipes = JSON.stringify(this.state.recipes);
+    localStorage.setItem('recipes', recipes);
   };
 
   render() {

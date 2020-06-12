@@ -1,55 +1,27 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-// import { makeStyles } from '@material-ui/core/styles';
-
-// Import Test Data
-import { recipe as testData } from './../testData';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     maxWidth: 345,
-//   },
-//   media: {
-//     height: 0,
-//     paddingTop: '56.25%', // 16:9
-//   },
-//   expand: {
-//     transform: 'rotate(0deg)',
-//     marginLeft: 'auto',
-//     transition: theme.transitions.create('transform', {
-//       duration: theme.transitions.duration.shortest,
-//     }),
-//   },
-//   expandOpen: {
-//     transform: 'rotate(180deg)',
-//   },
-//   avatar: {
-//     backgroundColor: red[500],
-//   },
-// }));
+import Button from '@material-ui/core/Button';
 
 class Recipe extends React.Component {
   state = {
     activeRecipe: {},
   };
 
-  componentDidMount = async() => {
-    // const { REACT_APP_API_KEY: API_KEY } = process.env;
-    // const corsURL = 'https://cors-anywhere.herokuapp.com/';
-    // const apiURL = `https://api.spoonacular.com/recipes/${this.props.location.state.recipeId}/information?apiKey=${API_KEY}`;
-    // const apiCall = await fetch(corsURL + apiURL);
-    // const recipe = await apiCall.json();
-    // /* Remove unnecessary text from recipe summary */
-    // const regex = /.+(?= All things considered)/gim;
-    // recipe.summary = recipe.summary.match(regex);
+  componentDidMount = async () => {
+    const { REACT_APP_API_KEY: API_KEY } = process.env;
+    const corsURL = 'https://cors-anywhere.herokuapp.com/';
+    const apiURL = `https://api.spoonacular.com/recipes/${this.props.location.state.recipeId}/information?apiKey=${API_KEY}`;
+    const apiCall = await fetch(corsURL + apiURL);
+    const recipe = await apiCall.json();
+    /* Remove unnecessary text from recipe summary */
+    const regex = /.+(?= All things considered)/gim;
+    recipe.summary = recipe.summary.match(regex);
 
-    // this.setState({activeRecipe: recipe});
-
-    // Test Data
-    this.setState({ activeRecipe: testData });
+    this.setState({ activeRecipe: recipe });
   };
 
   render() {
@@ -64,6 +36,13 @@ class Recipe extends React.Component {
             </Grid>
             <Grid item xs={12} md={6}>
               <CardMedia component="img" src={this.state.activeRecipe.image} />
+              <Button
+                style={{ margin: 10 }}
+                variant="outlined"
+                color="secondary"
+              >
+                <Link to="/">Go Home</Link>
+              </Button>
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography
