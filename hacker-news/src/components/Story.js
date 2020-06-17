@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getStory } from '../services/hnAPi';
+import moment from 'moment';
 import {
   Card,
   CardContent,
@@ -29,7 +30,9 @@ export const Story = ({ storyId }) => {
             <Typography variant="caption">By: {story.by}</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="caption">Posted: {story.time}</Typography>
+            <Typography variant="caption">
+              Posted: {moment.unix(story.time).fromNow()}
+            </Typography>
           </Grid>
         </Grid>
       </CardContent>
