@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { getStory } from '../services/hnAPi';
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Link,
+  Typography,
+  Grid,
+} from '@material-ui/core';
 
 export const Story = ({ storyId }) => {
   const [story, setStory] = useState({});
@@ -9,12 +17,22 @@ export const Story = ({ storyId }) => {
   }, [storyId]);
 
   return story && story.url ? (
-    <>
-      <a href={story.url}>
-        <p>{story.title}</p>
-      </a>
-      <p> By: {story.by}</p>
-      <p>Posted: {story.time}</p>
-    </>
+    <Card variant="outlined">
+      <CardContent>
+        <Grid container>
+          <Grid item xs={12}>
+            <CardActions>
+              <Link href={story.url}>{story.title}</Link>
+            </CardActions>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="caption">By: {story.by}</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="caption">Posted: {story.time}</Typography>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   ) : null;
 };
