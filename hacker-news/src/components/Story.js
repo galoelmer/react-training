@@ -27,7 +27,9 @@ export const Story = ({ storyId }) => {
             </CardActions>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="caption">By: {story.by}</Typography>
+            <Typography data-testid="story-by" variant="caption">
+              By: {story.by}
+            </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="caption">
