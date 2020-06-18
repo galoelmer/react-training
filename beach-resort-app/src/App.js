@@ -1,13 +1,19 @@
 import React from 'react';
-import { Box, CssBaseline, Typography } from '@material-ui/core';
+import { Route, Switch } from 'react-router-dom';
+import Home from './pages/Home';
+import Rooms from './pages/Rooms';
+import SingleRoom from './pages/SingleRoom';
+import Error from './pages/Error';
 
 function App() {
   return (
     <>
-      <CssBaseline />
-      <Box display="flex" justifyContent="center">
-        <Typography variant="h3">Beach Resort App</Typography>
-      </Box>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/rooms" component={Rooms} />
+        <Route exact path="/rooms/:room-type" component={SingleRoom} />
+        <Route component={Error} />
+      </Switch>
     </>
   );
 }
