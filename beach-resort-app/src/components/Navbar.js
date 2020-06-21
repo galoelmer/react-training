@@ -8,6 +8,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
+import Anchor from '@material-ui/core/Link';
+import Box from '@material-ui/core/Box';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
@@ -41,10 +44,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  listItems: {
+    display: 'flex',
+  },
 }));
 
 export default function ButtonAppBar() {
   const classes = useStyles();
+  const matches = useMediaQuery('(min-width:600px)');
 
   const [state, setState] = React.useState({
     right: false,
@@ -70,14 +77,19 @@ export default function ButtonAppBar() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        {['HOME', 'ROOMS'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <HomeIcon /> : <HotelIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+      <List className={clsx({ [classes.listItems]: matches })}>
+        {[
+          { name: 'Home', path: '/', icon: <HomeIcon /> },
+          { name: 'Rooms', path: '/rooms', icon: <HotelIcon /> },
+        ].map((item, index) => (
+          <Link to={item.path} key={item.name}>
+            <Anchor component="button">
+              <ListItem>
+                <ListItemIcon>{!matches ? item.icon : null}</ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItem>
+            </Anchor>
+          </Link>
         ))}
       </List>
     </div>
@@ -86,7 +98,7 @@ export default function ButtonAppBar() {
   return (
     <div className={classes.root}>
       <AppBar position="static" style={{ backgroundColor: '#eceff1' }}>
-        <Toolbar className={classes.toolbar}>
+        <Toolbar className={clsx({[classes.toolbar]:!matches})}>
           <CardMedia
             style={{ width: '180px' }}
             component="img"
@@ -94,14 +106,16 @@ export default function ButtonAppBar() {
             image={logo}
           />
           <Hidden xsDown implementation="css">
-            <Typography>
-              <Button>
-                <Link to="/">Home</Link>
-              </Button>
-              <Button>
-                <Link to="/rooms">Rooms</Link>
-              </Button>
-            </Typography>
+            {list('right')}
+            {/* <Typography>
+              <Link to="/">
+                <Anchor variant="body1">Home</Anchor>
+              </Link>
+
+              <Link to="/rooms">
+                <Anchor variant="body1">Rooms</Anchor>
+              </Link>
+            </Typography> */}
           </Hidden>
           <Hidden smUp implementation="css">
             <IconButton
