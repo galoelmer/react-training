@@ -6,12 +6,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
 
 ReactDOM.render(
-  <React.Fragment>
+  <React.StrictMode>
     <CssBaseline />
     <Router>
       <App />
     </Router>
-  </React.Fragment>,
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

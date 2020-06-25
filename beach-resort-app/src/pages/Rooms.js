@@ -1,12 +1,8 @@
-import React from 'react'
-import { Box } from '@material-ui/core'
+import React from 'react';
+import Hero from '../components/Hero';
 
-const  Rooms = () => {
-    return (
-        <Box>
-            Rooms Page
-        </Box>
-    )
-}
+const Rooms = () => {
+  return <Hero></Hero>;
+};
 
 export default Rooms;

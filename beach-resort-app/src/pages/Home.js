@@ -1,12 +1,8 @@
-import React from 'react'
-import { Box } from '@material-ui/core'
+import React from 'react';
+import Hero from '../components/Hero';
 
 const Home = () => {
-    return (
-        <Box>
-            Home Page
-        </Box>
-    )
-}
+  return <Hero defaultHero={true}></Hero>;
+};
 
 export default Home;

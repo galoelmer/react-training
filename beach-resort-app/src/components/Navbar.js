@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -16,12 +16,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 
+import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import HotelIcon from '@material-ui/icons/Hotel';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import CloseIcon from '@material-ui/icons/Close';
 import logo from '../images/logo.svg';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,14 +43,17 @@ const useStyles = makeStyles((theme) => ({
   listItems: {
     display: 'flex',
   },
+  closeButton: {
+    backgroundColor: `${blueGrey[50]}`
+  }
 }));
 
 export default function ButtonAppBar() {
   window.addEventListener('resize', function (e) {
-      const screenSize = e.target.screen.width;
-      if (screenSize > 600 ) {
-        setOpen(false);
-      }
+    const screenSize = e.target.screen.width;
+    if (screenSize > 600) {
+      setOpen(false);
+    }
   });
 
   const classes = useStyles();
@@ -100,12 +105,14 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="static" style={{ backgroundColor: '#eceff1' }}>
         <Toolbar className={clsx({ [classes.toolbar]: !matches })}>
-          <CardMedia
-            style={{ width: '180px' }}
-            component="img"
-            alt="Beach Resort Logo"
-            image={logo}
-          />
+          <RouterLink to="/">
+            <CardMedia
+              style={{ width: '180px' }}
+              component="img"
+              alt="Beach Resort Logo"
+              image={logo}
+            />
+          </RouterLink>
           <Hidden xsDown implementation="css">
             {list()}
           </Hidden>
@@ -121,11 +128,13 @@ export default function ButtonAppBar() {
           </Hidden>
         </Toolbar>
         <Drawer open={open} anchor="right" onClose={toggleDrawer()}>
-          <Box>
-            <IconButton onClick={toggleDrawer()}>
-              <ChevronRightIcon />
+          <Box className={classes.closeButton} onClick={toggleDrawer()}>
+            <IconButton>
+              <CloseIcon />
+              <Typography>Close</Typography>
             </IconButton>
           </Box>
+
           <Divider />
           {list()}
         </Drawer>
