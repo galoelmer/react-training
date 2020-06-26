@@ -25,6 +25,8 @@ export default function Hero({ defaultHero, children }) {
       className={clsx([classes.defaultHero], {
         [classes.roomsHero]: !defaultHero,
       })}
-    ></header>
+    >
+      {children}
+    </header>
   );
 }
