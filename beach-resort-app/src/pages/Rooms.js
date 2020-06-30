@@ -2,20 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import Banner from '../components/Banner';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   button: {
-    display: 'inline-block',
     textDecoration: 'none',
     letterSpacing: '3px',
     color: '#000',
     background: '#af9a7d',
-    padding: '0.4rem 0.9rem',
+    padding: '0.7rem 1rem',
     border: '3px solid #af9a7d',
     transition: 'all 0.3s linear',
     textTransform: 'uppercase',
+    borderRadius: '3px',
+    '&:hover': {
+      background: 'none',
+      color: '#fff',
+    },
   },
 });
 
@@ -24,11 +27,9 @@ const Rooms = () => {
   return (
     <Hero>
       <Banner title="our rooms">
-        <Button>
-          <Link className={classes.button} to="/">
-            return home
-          </Link>
-        </Button>
+        <Link className={classes.button} to="/">
+          return home
+        </Link>
       </Banner>
     </Hero>
   );
