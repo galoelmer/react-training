@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Hero from '../components/Hero';
 import Banner from '../components/Banner';
 import Services from '../components/Services';
+import FeaturedRooms from '../components/FeaturedRooms';
 
 const useStyles = makeStyles({
   button: {
@@ -38,6 +39,7 @@ const Home = () => {
         </Banner>
       </Hero>
       <Services />
+      <FeaturedRooms />
     </>
   );
 };
