@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <>
+    <div style={{ overflow: 'hidden' }}>
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/rooms/:roomType" component={SingleRoom} />
         <Route component={Error} />
       </Switch>
-    </>
+    </div>
   );
 }
 

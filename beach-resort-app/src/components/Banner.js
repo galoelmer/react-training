@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'capitalize',
     letterSpacing: '3px',
     borderRadius: '5px',
+    margin: '0 1rem'
   },
   title: {
     fontSize: '2.5rem',

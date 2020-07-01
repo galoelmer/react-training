@@ -103,7 +103,7 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ backgroundColor: '#eceff1' }}>
+      <AppBar position="fixed" style={{ backgroundColor: '#eceff1' }}>
         <Toolbar className={clsx({ [classes.toolbar]: !matches })}>
           <RouterLink to="/">
             <CardMedia
