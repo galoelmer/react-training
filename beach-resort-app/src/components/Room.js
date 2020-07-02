@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -55,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MediaCard({ room }) {
+export default function Room({ room }) {
   const classes = useStyles();
   const { name, images, price, slug } = room;
 
@@ -82,3 +83,12 @@ export default function MediaCard({ room }) {
     </Card>
   );
 }
+
+Room.propTypes = {
+  room: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    price: PropTypes.number.isRequired,
+  }),
+};

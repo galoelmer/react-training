@@ -10,6 +10,13 @@ class RoomProvider extends Component {
     loading: true,
   };
 
+  // get data
+  componentDidMount() {
+    let rooms = this.formatData(items);
+    let featuredRooms = rooms.filter((room) => room.featured === true);
+    this.setState({ rooms, featuredRooms, sortedRooms: rooms, loading: false });
+  }
+
   formatData(items) {
     let tempItems = items.map((item) => {
       let id = item.sys.id;
@@ -20,16 +27,15 @@ class RoomProvider extends Component {
     return tempItems;
   }
 
-  // get data
-  componentDidMount() {
-    let rooms = this.formatData(items);
-    let featuredRooms = rooms.filter((room) => room.featured === true);
-    this.setState({ rooms, featuredRooms, sortedRooms: rooms, loading: false });
-  }
+  getRoom = (slug) => {
+    let tempRooms = [...this.state.rooms];
+    const room = tempRooms.find((room) => room.slug === slug);
+    return room;
+  };
 
   render() {
     return (
-      <RoomContext.Provider value={{ ...this.state }}>
+      <RoomContext.Provider value={{ ...this.state, getRoom: this.getRoom }}>
         {this.props.children}
       </RoomContext.Provider>
     );

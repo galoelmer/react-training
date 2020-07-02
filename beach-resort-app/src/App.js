@@ -5,10 +5,11 @@ import Rooms from './pages/Rooms';
 import SingleRoom from './pages/SingleRoom';
 import Error from './pages/Error';
 import Navbar from './components/Navbar';
+import Container from '@material-ui/core/Container';
 
 function App() {
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <Container maxWidth="xl" disableGutters style={{ overflow: 'hidden' }}>
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
@@ -16,7 +17,7 @@ function App() {
         <Route exact path="/rooms/:roomType" component={SingleRoom} />
         <Route component={Error} />
       </Switch>
-    </div>
+    </Container>
   );
 }
 

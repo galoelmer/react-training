@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'capitalize',
     letterSpacing: '3px',
     borderRadius: '5px',
-    margin: '0 1rem'
+    margin: '0 1rem',
   },
   title: {
     fontSize: '2.5rem',
@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('xs')]: {
     root: {
       padding: '2rem 3rem',
-    },
-    title: {
-      fontSize: '3rem',
     },
   },
   [theme.breakpoints.up('sm')]: {
