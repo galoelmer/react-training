@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import Banner from '../components/Banner';
 import { makeStyles } from '@material-ui/core/styles';
+import RoomsContainer from '../components/RoomsContainer';
 
 const useStyles = makeStyles({
   button: {
@@ -25,13 +26,16 @@ const useStyles = makeStyles({
 const Rooms = () => {
   const classes = useStyles();
   return (
-    <Hero>
-      <Banner title="our rooms">
-        <Link className={classes.button} to="/">
-          return home
-        </Link>
-      </Banner>
-    </Hero>
+   <>
+      <Hero>
+        <Banner title="our rooms">
+          <Link className={classes.button} to="/">
+            return home
+          </Link>
+        </Banner>
+      </Hero>
+      <RoomsContainer />
+   </>
   );
 };
 

@@ -1,36 +1,35 @@
-import React, { useContext } from 'react';
-// import defaultBcg from '../images/room-1.jpeg';
+import React, { useContext, useEffect } from 'react';
 import Hero from '../components/Hero';
 import Banner from '../components/Banner';
 import { Link } from 'react-router-dom';
 import { RoomContext } from '../context';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import Paper from '@material-ui/core/Paper';
 import {
   Box,
-  Typography,
+  Container,
+  Grid,
+  GridList,
+  GridListTile,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Container,
+  Paper,
+  Typography,
 } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    textDecoration: 'none',
-    letterSpacing: '3px',
-    color: '#000',
     background: '#af9a7d',
-    padding: '0.7rem 1rem',
     border: '3px solid #af9a7d',
-    transition: 'all 0.3s linear',
-    textTransform: 'uppercase',
     borderRadius: '3px',
+    color: '#000',
+    letterSpacing: '3px',
+    padding: '0.7rem 1rem',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    transition: 'all 0.3s linear',
     '&:hover': {
       background: 'none',
       color: '#fff',
@@ -75,9 +74,15 @@ const useStyles = makeStyles((theme) => ({
 export default function SingleRoom(props) {
   const classes = useStyles();
   const context = useContext(RoomContext);
-  const slug = props.match.params.roomType;
   const { getRoom } = context;
+  const slug = props.match.params.roomType;
   const room = getRoom(slug);
+
+  // Scroll page to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (!room) {
     return (
       <Hero hero="roomsHero">
@@ -90,15 +95,15 @@ export default function SingleRoom(props) {
     );
   }
   const {
-    name,
-    description,
-    capacity,
-    size,
-    price,
-    extras,
     breakfast,
-    pets,
+    capacity,
+    description,
+    extras,
     images,
+    name,
+    pets,
+    price,
+    size,
   } = room;
 
   return (
@@ -123,7 +128,9 @@ export default function SingleRoom(props) {
         <Grid className={classes.content} container spacing={3}>
           <Grid className={classes.details} item xs={12} sm={6}>
             <Typography variant="h5">Details</Typography>
-            <Box component='p' lineHeight={2} letterSpacing={1}>{description}</Box>
+            <Box component="p" lineHeight={2} letterSpacing={1}>
+              {description}
+            </Box>
           </Grid>
           <Grid className={classes.info} item xs={12} sm={6}>
             <Typography variant="h5">Info</Typography>
