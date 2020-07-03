@@ -12,7 +12,7 @@ export default function RoomsList({ rooms }) {
   }
   return (
     <Container>
-      <Grid container spacing={0}>
+      <Grid container>
         {rooms.map((item) => {
           return (
             <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
