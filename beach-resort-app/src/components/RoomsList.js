@@ -1,13 +1,13 @@
 import React from 'react';
 import Room from '../components/Room';
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, Box } from '@material-ui/core';
 
 export default function RoomsList({ rooms }) {
   if (rooms.length === 0) {
     return (
-      <div>
-        <h5>No rooms matched your search paramenters</h5>
-      </div>
+      <Container>
+        <Box variant='h3' component='h3' align='center' mb={10}>No rooms matched your search parameters</Box>
+      </Container>
     );
   }
   return (

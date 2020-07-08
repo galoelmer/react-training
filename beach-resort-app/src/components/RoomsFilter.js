@@ -14,6 +14,7 @@ import {
   Slider,
   Box,
   Checkbox,
+  Chip,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -46,9 +47,7 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
     },
   },
-  roomSizeInput: {
-      
-  } 
+  roomSizeInput: {},
 }));
 
 // Get all unique values from room types
@@ -141,9 +140,18 @@ export default function RoomsFilter({ rooms }) {
         </Grid>
         <Grid item xs={12} md={4}>
           <Box className={classes.slider}>
-            <Typography id="price-slider" gutterBottom>
-              {`Room Price $${price}`}
-            </Typography>
+            <Box display="flex" justifyContent="space-evenly">
+              <Typography id="price-slider" gutterBottom>
+                {/* {`Room Price $${price}`} */}
+                Room Price
+              </Typography>
+              <Chip
+                size="small"
+                label={`$${price}`}
+                color="primary"
+                variant="outlined"
+              />
+            </Box>
             <Slider
               id="price"
               name="range"
@@ -159,7 +167,12 @@ export default function RoomsFilter({ rooms }) {
           </Box>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Box className={classes.roomSizeInput} display="flex" flexWrap="wrap" justifyContent="space-evenly">
+          <Box
+            className={classes.roomSizeInput}
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="space-evenly"
+          >
             <Typography style={{ width: '100%', marginBottom: '1rem' }}>
               Room Size
             </Typography>
@@ -168,7 +181,7 @@ export default function RoomsFilter({ rooms }) {
               name="minSize"
               value={minSize}
               onChange={handleChange}
-              label="Min Size"
+              label="Min Size Sqft"
               variant="outlined"
               style={{ width: 140 }}
             />
@@ -177,7 +190,7 @@ export default function RoomsFilter({ rooms }) {
               name="maxSize"
               value={maxSize}
               onChange={handleChange}
-              label="Max Size"
+              label="Max Size Sqft"
               variant="outlined"
               style={{ width: 140 }}
             />
