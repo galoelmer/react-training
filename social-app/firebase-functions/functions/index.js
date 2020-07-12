@@ -2,30 +2,35 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
 admin.initializeApp();
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info('Hello logs!', { structuredData: true });
-  response.send('Hello from Firebase!');
-});
 
-exports.getScreams = functions.https.onRequest(async (request, response) => {
+const express = require('express');
+const app = express();
+
+app.get('/screams', async (req, res) => {
   const result = await admin
     .firestore()
     .collection('screams')
+    .orderBy('createdAt', 'desc')
     .get()
     .then((data) => {
       let screams = [];
       data.forEach((doc) => {
-        screams.push(doc.data());
+        screams.push({
+          screamId: doc.id,
+          ...doc.data(),
+        });
       });
       return screams;
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err.code });
     });
-  response.json(result);
+
+  res.json(result);
 });
 
-exports.createScream = functions.https.onRequest((req, res) => {
+app.post('/scream', (req, res) => {
   const newScream = {
     body: req.body.body,
     userHandle: req.body.userHandle,
@@ -44,3 +49,5 @@ exports.createScream = functions.https.onRequest((req, res) => {
       console.log(err);
     });
 });
+
+exports.api = functions.https.onRequest(app);
