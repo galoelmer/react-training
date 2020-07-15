@@ -1,28 +1,37 @@
-// const { db } = require('../util/admin');
+const { db } = require('../util/admin');
 
-exports.getScreams = functions.https.onRequest(async (request, response) => {
+exports.getAllScreams = async (req, res) => {
   const result = await db
     .collection('screams')
     .get()
     .then((data) => {
       let screams = [];
       data.forEach((doc) => {
-        screams.push(doc.data());
+        screams.push({
+          screamId: doc.id,
+          ...doc.data(),
+        });
       });
       return screams;
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err.code });
     });
-  response.json(result);
-});
+  res.json(result);
+};
 
-exports.createScream = functions.https.onRequest((req, res) => {
+exports.postOneScream = (req, res) => {
+  if (req.body.body.trim() === '') {
+    return res.status(400).json({ body: 'Body must not be empty' });
+  }
   const newScream = {
     body: req.body.body,
-    userHandle: req.body.userHandle,
+    userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
 
-  admin.db
-    .collection('screams')
+  db.collection('screams')
     .add(newScream)
     .then((doc) => {
       res.json({ message: `document ${doc.id} created successfully` });
@@ -31,4 +40,4 @@ exports.createScream = functions.https.onRequest((req, res) => {
       res.status(500).json({ error: 'Something went wrong' });
       console.log(err);
     });
-});
+};
