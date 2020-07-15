@@ -19,9 +19,10 @@ var config = {
 const firebase = require('firebase');
 firebase.initializeApp(config);
 
+const db = admin.firestore();
+
 app.get('/screams', async (req, res) => {
-  const result = await admin
-    .firestore()
+  const result = await db
     .collection('screams')
     .orderBy('createdAt', 'desc')
     .get()
@@ -50,9 +51,7 @@ app.post('/scream', (req, res) => {
     createdAt: new Date().toISOString(),
   };
 
-  admin
-    .firestore()
-    .collection('screams')
+  db.collection('screams')
     .add(newScream)
     .then((doc) => {
       res.json({ message: `document ${doc.id} created successfully` });
@@ -74,16 +73,26 @@ app.post('/signup', (req, res) => {
 
   // TODO: validate data
 
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(newUser.email, newUser.password)
+  db.doc(`/users/${newUser.handle}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        return res.status(400).json({ handle: 'this handle is already taken' });
+      } else {
+        return firebase
+          .auth()
+          .createUserWithEmailAndPassword(newUser.email, newUser.password);
+      }
+    })
     .then((data) => {
-      return res
-        .status(201)
-        .json({ message: `user ${data.user.uid} signed up successfully` });
-    }).catch((err) => {
+      return data.user.getIdToken();
+    })
+    .then((token) => {
+      return res.status(201).json({ token });
+    })
+    .catch((err) => {
       console.log(err);
-      return res.status(500).json({error: err.code})
+      return res.status(500).json({ error: err.code });
     });
 });
 
