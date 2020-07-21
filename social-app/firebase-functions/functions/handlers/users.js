@@ -1,14 +1,15 @@
+const { v4: uuid } = require('uuid');
+const firebase = require('firebase');
 const { admin, db } = require('../util/admin');
 
 const config = require('../util/config');
-const { v4: uuid } = require('uuid');
 
-const firebase = require('firebase');
 const {
   validateSignUpData,
   validateLoginData,
   reduceUserDetails,
 } = require('../util/validators');
+
 firebase.initializeApp(config);
 
 exports.signup = (req, res) => {
@@ -24,17 +25,17 @@ exports.signup = (req, res) => {
 
   const noImg = 'no-img.png';
 
-  let token, userId;
+  let token;
+  let userId;
   db.doc(`/users/${newUser.handle}`)
     .get()
     .then((doc) => {
       if (doc.exists) {
         return res.status(400).json({ handle: 'this handle is already taken' });
-      } else {
-        return firebase
-          .auth()
-          .createUserWithEmailAndPassword(newUser.email, newUser.password);
       }
+      return firebase
+        .auth()
+        .createUserWithEmailAndPassword(newUser.email, newUser.password);
     })
     .then((data) => {
       userId = data.user.uid;
@@ -58,9 +59,8 @@ exports.signup = (req, res) => {
       console.log(err);
       if (err.code === 'auth/email-already-in-use') {
         return res.status(400).json({ email: 'Email is already in use' });
-      } else {
-        return res.status(500).json({ error: err.code });
       }
+      return res.status(500).json({ error: err.code });
     });
 };
 
@@ -88,13 +88,14 @@ exports.login = (req, res) => {
         return res
           .status(403)
           .json({ general: 'Wrong credentials, please try again' });
-      } else return res.status(500).json({ error: err.code });
+      }
+      return res.status(500).json({ error: err.code });
     });
 };
 
 // Add/update user details
 exports.addUserDetails = (req, res) => {
-  let userDetails = reduceUserDetails(req.body);
+  const userDetails = reduceUserDetails(req.body);
 
   db.doc(`/users/${req.user.handle}`)
     .update(userDetails)
@@ -108,7 +109,7 @@ exports.addUserDetails = (req, res) => {
 };
 // Get user details
 exports.getUserDetails = (req, res) => {
-  let userData = {};
+  const userData = {};
   db.doc(`/users/${req.user.handle}`)
     .get()
     .then((doc) => {
@@ -144,7 +145,7 @@ exports.uploadImage = (req, res) => {
 
   let imageToBeUploaded = {};
   let imageFileName;
-  let generatedToken = uuid();
+  const generatedToken = uuid();
 
   busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
     console.log(fieldname, filename, encoding, mimetype);
