@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const app = require('express')();
+const { response } = require('express');
 const FBAuth = require('./util/fbAuth');
 const {
   getAllScreams,
@@ -67,6 +68,32 @@ exports.deleteNotificationOnUnlike = functions.firestore
     return db
       .doc(`/notifications/${snapshot.id}`)
       .delete()
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
+exports.createNotificationOnComment = functions.firestore
+  .document('comments/{id}')
+  .onCreate((snapshot) => {
+    return db
+      .doc(`/screams/${snapshot.data().screamId}`)
+      .get()
+      .then((doc) => {
+        if (
+          doc.exists &&
+          doc.data().userHandle !== snapshot.data().userHandle
+        ) {
+          return db.doc(`/notifications/${snapshot.id}`).set({
+            createdAt: new Date().toISOString(),
+            recipient: doc.data().userHandle,
+            sender: snapshot.data().userHandle,
+            type: 'comment',
+            read: false,
+            screamId: doc.id,
+          });
+        }
+      })
       .catch((err) => {
         console.log(err);
       });
