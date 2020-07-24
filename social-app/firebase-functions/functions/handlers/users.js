@@ -107,8 +107,46 @@ exports.addUserDetails = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
-// Get user details
+
+// Get any user's details
 exports.getUserDetails = (req, res) => {
+  const userData = {};
+  db.doc(`/users/${req.params.handle}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        userData.user = doc.data();
+        return db
+          .collection('screams')
+          .where('userHandle', '==', req.params.handle)
+          .orderBy('createdAt', 'desc')
+          .get();
+      }
+      return res.status(400).json({ error: 'User not found' });
+    })
+    .then((data) => {
+      userData.screams = [];
+      data.forEach((doc) => {
+        userData.screams.push({
+          body: doc.data().body,
+          createdAt: doc.data().createdAt,
+          userHandle: doc.data().userHandle,
+          userImage: doc.data().userImage,
+          likesCount: doc.data().likesCount,
+          commentsCount: doc.data().commentsCount,
+          screamId: doc.id,
+        });
+      });
+      return res.json(userData);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+
+// Get own user details
+exports.getAuthenticatedUser = (req, res) => {
   const userData = {};
   db.doc(`/users/${req.user.handle}`)
     .get()
@@ -210,4 +248,21 @@ exports.uploadImage = (req, res) => {
       });
   });
   busboy.end(req.rawBody);
+};
+
+exports.markNotificationsRead = (req, res) => {
+  const batch = db.batch();
+  req.body.forEach((notificationId) => {
+    const notification = db.doc(`/notifications/${notificationId}`);
+    batch.update(notification, { read: true });
+  });
+  batch
+    .commit()
+    .then(() => {
+      return res.json({ message: 'Notifications marked read' });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ error: err.code });
+    });
 };
