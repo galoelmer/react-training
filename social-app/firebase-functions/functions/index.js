@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const app = require('express')();
 const { response } = require('express');
+const { onUpdate } = require('firebase-functions/lib/providers/remoteConfig');
 const FBAuth = require('./util/fbAuth');
 const {
   getAllScreams,
@@ -97,6 +98,63 @@ exports.createNotificationOnComment = functions.firestore
             screamId: doc.id,
           });
         }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
+exports.onUserImageChange = functions.firestore
+  .document('/users/{userId}')
+  .onUpdate((change) => {
+    console.log(change.before.data());
+    console.log(change.after.data());
+    if (change.before.data() !== change.after.data()) {
+      const batch = db.batch();
+      return db
+        .collection('screams')
+        .where('userHandle', '==', change.before.data().handle)
+        .get()
+        .then((data) => {
+          data.forEach((doc) => {
+            const scream = db.doc(`/scremas/${doc.id}`);
+            batch.update(scream, { userImage: change.after.data().imageUrl });
+          });
+          return batch.commit();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    return true;
+  });
+
+exports.onScreamDelete = functions.firestore
+  .document('/screams/{screamId}')
+  .onDelete((snapshot, context) => {
+    const { screamId } = context.params;
+    const batch = db.batch();
+    return db
+      .collection('comments')
+      .where('screamId', '==', screamId)
+      .get()
+      .then((data) => {
+        data.forEach((doc) => {
+          batch.delete(db.doc(`/comments/${doc.id}`));
+        });
+        return db.collection('likes').where('screamId', '==', screamId).get();
+      })
+      .then((data) => {
+        data.forEach((doc) => {
+          batch.delete(db.doc(`/likes/${doc.id}`));
+        });
+        return db.collection('notifications').where('screamId', '==', screamId).get();
+      })
+      .then((data) => {
+        data.forEach((doc) => {
+          batch.delete(db.doc(`/notifications/${doc.id}`));
+        });
+        return batch.commit();
       })
       .catch((err) => {
         console.log(err);
