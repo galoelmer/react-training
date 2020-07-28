@@ -107,8 +107,8 @@ exports.createNotificationOnComment = functions.firestore
 exports.onUserImageChange = functions.firestore
   .document('/users/{userId}')
   .onUpdate((change) => {
-    console.log(change.before.data());
-    console.log(change.after.data());
+    console.log('BEFORE => ', change.before.data());
+    console.log('AFTER => ', change.after.data());
     if (change.before.data() !== change.after.data()) {
       const batch = db.batch();
       return db
@@ -117,7 +117,7 @@ exports.onUserImageChange = functions.firestore
         .get()
         .then((data) => {
           data.forEach((doc) => {
-            const scream = db.doc(`/scremas/${doc.id}`);
+            const scream = db.doc(`/screams/${doc.id}`);
             batch.update(scream, { userImage: change.after.data().imageUrl });
           });
           return batch.commit();
