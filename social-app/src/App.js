@@ -40,19 +40,21 @@ theme = responsiveFontSizes(theme);
 export class App extends Component {
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <Router>
-          <CssBaseline />
-          <Navbar />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={SignUp} />
-            </Switch>
-          </div>
-        </Router>
-      </ThemeProvider>
+      <>
+        <CssBaseline />
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={SignUp} />
+              </Switch>
+            </div>
+          </Router>
+        </ThemeProvider>
+      </>
     );
   }
 }

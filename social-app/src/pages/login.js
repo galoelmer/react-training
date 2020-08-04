@@ -66,6 +66,7 @@ export class Login extends Component {
         this.props.history.push('/');
       })
       .catch((err) => {
+        console.log('ERRORRRRR: ', err.response);
         this.setState({ errors: err.response.data, loading: false });
       });
   };
@@ -103,8 +104,8 @@ export class Login extends Component {
               type="password"
               label="Password"
               className={classes.textField}
-              helperText={errors.email}
-              error={errors.email ? true : false}
+              helperText={errors.password}
+              error={errors.password ? true : false}
               value={this.state.password}
               onChange={this.handleChange}
               fullWidth
