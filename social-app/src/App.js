@@ -3,8 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
 // Material UI Components
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
+import {
+  createMuiTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 
 //Components
 import Navbar from './components/Navbar';
@@ -14,22 +18,24 @@ import Home from './pages/home';
 import Login from './pages/login';
 import SignUp from './pages/signup';
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#757ce8',
-      main: '#3f50b5',
-      dark: '#002884',
+      light: '#47c4fd',
+      main: '#03a9f4',
+      dark: '#0275a8',
       contrastText: '#fff',
     },
     secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
+      light: '#fd7f47',
+      main: '#f44e03',
+      dark: '#a83602',
       contrastText: '#000',
     },
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 export class App extends Component {
   render() {
