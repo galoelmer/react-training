@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 import './App.css';
+
+// Components
+import AuthRoute from './util/AuthRoute';
 
 // Material UI Components
 import { CssBaseline } from '@material-ui/core';
@@ -9,8 +13,6 @@ import {
   responsiveFontSizes,
   ThemeProvider,
 } from '@material-ui/core/styles';
-
-//Components
 import Navbar from './components/Navbar';
 
 // Pages
@@ -37,19 +39,42 @@ let theme = createMuiTheme({
 
 theme = responsiveFontSizes(theme);
 
+let authenticated;
+const token = localStorage.FBIdToken;
+
+if (token) {
+  const decodedToken = jwtDecode(token);
+  if (decodedToken.exp * 1000 < Date.now()) {
+    window.location.href = '/login';
+    authenticated = false;
+  } else {
+    authenticated = true;
+  }
+}
+
 export class App extends Component {
   render() {
     return (
       <>
-        <CssBaseline />
         <ThemeProvider theme={theme}>
+          <CssBaseline />
           <Router>
             <Navbar />
             <div className="container">
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={SignUp} />
+                <AuthRoute
+                  exact
+                  path="/login"
+                  component={Login}
+                  authenticated={authenticated}
+                />
+                <AuthRoute
+                  exact
+                  path="/signup"
+                  component={SignUp}
+                  authenticated={authenticated}
+                />
               </Switch>
             </div>
           </Router>

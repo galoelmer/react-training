@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 // Material UI Components
 import {
@@ -13,6 +12,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 
 const styles = {
@@ -60,13 +60,14 @@ export class Login extends Component {
       .post('/login', userData)
       .then((res) => {
         console.log(res.data);
+        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
         this.setState({
           loading: false,
         });
         this.props.history.push('/');
       })
       .catch((err) => {
-        console.log('ERRORRRRR: ', err.response);
+        console.log(err.response);
         this.setState({ errors: err.response.data, loading: false });
       });
   };
@@ -76,6 +77,7 @@ export class Login extends Component {
       [event.target.name]: event.target.value,
     });
   };
+
   render() {
     const { classes } = this.props;
     const { errors, loading } = this.state;
