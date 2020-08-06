@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import './App.css';
 
+//Redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 // Components
 import AuthRoute from './util/AuthRoute';
 
@@ -55,9 +59,9 @@ if (token) {
 export class App extends Component {
   render() {
     return (
-      <>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Provider store={store}>
           <Router>
             <Navbar />
             <div className="container">
@@ -78,8 +82,8 @@ export class App extends Component {
               </Switch>
             </div>
           </Router>
-        </ThemeProvider>
-      </>
+        </Provider>
+      </ThemeProvider>
     );
   }
 }
