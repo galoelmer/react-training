@@ -21,6 +21,7 @@ import {
   ThemeProvider,
 } from '@material-ui/core/styles';
 import Navbar from './components/Navbar';
+// import { unstable_createMuiStrictModeTheme } from '@material-ui/core/styles';
 
 // Pages
 import Home from './pages/home';
@@ -71,16 +72,8 @@ export class App extends Component {
             <div className="container">
               <Switch>
                 <Route exact path="/" component={Home} />
-                <AuthRoute
-                  exact
-                  path="/login"
-                  component={Login}
-                />
-                <AuthRoute
-                  exact
-                  path="/signup"
-                  component={SignUp}
-                />
+                <AuthRoute exact path="/login" component={Login} />
+                <AuthRoute exact path="/signup" component={SignUp} />
               </Switch>
             </div>
           </Router>
