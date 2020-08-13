@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { withTheme } from '@material-ui/core/styles';
 
 // Redux
 import { connect } from 'react-redux';
@@ -20,13 +21,12 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
 const styles = (theme) => ({
-  //   ...theme,
   button: {
     float: 'right',
   },
 });
 
-export class EditDetails extends Component {
+class EditDetails extends Component {
   state = {
     bio: '',
     website: '',
@@ -152,5 +152,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { editUserDetails })(
-  withStyles(styles)(EditDetails)
+  withStyles(styles)(withTheme(EditDetails))
 );

@@ -14,7 +14,6 @@ export class Home extends Component {
   }
   render() {
     const { screams, loading } = this.props.data;
-    console.log(screams);
     let recentScreamsMarkup = !loading ? (
       screams
         .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
