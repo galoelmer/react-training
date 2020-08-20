@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MyButton from '../util/MyButton';
+import PostScream from './PostScream';
 
 // Material ui Components
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Icons
-import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 
@@ -32,9 +32,7 @@ const Navbar = ({ authenticated }) => {
       <Toolbar className={classes.toolbar}>
         {authenticated ? (
           <>
-            <MyButton tip="Post a Scream!">
-              <AddIcon />
-            </MyButton>
+            <PostScream />
             <Link to="/">
               <MyButton tip="Home">
                 <HomeIcon />
