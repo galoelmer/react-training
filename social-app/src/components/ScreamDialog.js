@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { withTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import MyButton from '../util/MyButton';
+import LikeButton from './LikeButton';
 
 // Redux
 import { connect } from 'react-redux';
@@ -39,6 +40,15 @@ const styles = {
     position: 'absolute',
     left: '90%',
   },
+  expandButton: {
+    position: 'absolute',
+    left: '90%',
+  },
+  circularProgressContainer: {
+    textAlign: 'center',
+    marginTop: 50,
+    marginBottom: 5,
+  },
 };
 
 class ScreamDialog extends Component {
@@ -58,11 +68,11 @@ class ScreamDialog extends Component {
     const {
       classes,
       scream: {
-        screamId,
+        // screamId,
         body,
         createdAt,
-        likeCount,
-        commentCount,
+        // likeCount,
+        // commentCount,
         userImage,
         userHandle,
       },
@@ -70,7 +80,9 @@ class ScreamDialog extends Component {
     } = this.props;
 
     const dialogMarkup = loading ? (
-      <CircularProgress size={200} />
+      <div className={classes.circularProgressContainer}>
+        <CircularProgress size={200} thickness={2} />
+      </div>
     ) : (
       <Grid container spacing={6}>
         <Grid item sm={5}>
@@ -90,6 +102,7 @@ class ScreamDialog extends Component {
             {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
           </Typography>
           <Typography variant="body1">{body}</Typography>
+          <LikeButton scream={this.props.scream} />
         </Grid>
       </Grid>
     );
