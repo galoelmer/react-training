@@ -5,6 +5,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import MyButton from '../util/MyButton';
 import DeleteScream from '../components/DeleteScream';
+import ScreamDialog from './ScreamDialog';
 
 // Material UI components
 import { withStyles } from '@material-ui/core/styles';
@@ -68,7 +69,10 @@ export class Scream extends Component {
         likesCount,
         commentsCount,
       },
-      user: { authenticated, credentials: {handle} },
+      user: {
+        authenticated,
+        credentials: { handle },
+      },
     } = this.props;
 
     const likeButton = !authenticated ? (
@@ -87,9 +91,10 @@ export class Scream extends Component {
       </MyButton>
     );
 
-    const deleteButton =  authenticated && userHandle ===handle ? (
-      <DeleteScream screamId={screamId} />
-    ) : (null);
+    const deleteButton =
+      authenticated && userHandle === handle ? (
+        <DeleteScream screamId={screamId} />
+      ) : null;
 
     return (
       <Card className={classes.card}>
@@ -118,6 +123,7 @@ export class Scream extends Component {
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentsCount} comments</span>
+          <ScreamDialog screamId={screamId} userHandle={userHandle} />
         </CardContent>
       </Card>
     );

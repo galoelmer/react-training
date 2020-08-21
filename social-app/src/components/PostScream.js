@@ -71,8 +71,8 @@ class PostScream extends Component {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault();
     this.props.postScream({ body: this.state.body });
+    event.preventDefault();
   };
 
   render() {
