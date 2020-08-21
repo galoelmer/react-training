@@ -4,12 +4,13 @@ import dayjs from 'dayjs';
 import { withStyles } from '@material-ui/core/styles';
 import { withTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
 
 // Redux
 import { connect } from 'react-redux';
-import { getScream } from '../redux/actions/dataActions';
+import { getScream } from '../../redux/actions/dataActions';
 
 // Material UI components
 import Dialog from '@material-ui/core/Dialog';
@@ -22,10 +23,6 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import { CircularProgress } from '@material-ui/core';
 
 const styles = {
-  invisibleSeparator: {
-    border: 'none',
-    margin: 4,
-  },
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -67,15 +64,8 @@ class ScreamDialog extends Component {
   render() {
     const {
       classes,
-      scream: {
-        // screamId,
-        body,
-        createdAt,
-        // likeCount,
-        // commentCount,
-        userImage,
-        userHandle,
-      },
+      theme,
+      scream: { body, createdAt, userImage, userHandle, comments },
       UI: { loading },
     } = this.props;
 
@@ -97,13 +87,15 @@ class ScreamDialog extends Component {
           >
             @{userHandle}
           </Typography>
-          <hr className={classes.invisibleSeparator} />
+          <hr style={theme.invisibleSeparator} />
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
           </Typography>
           <Typography variant="body1">{body}</Typography>
           <LikeButton scream={this.props.scream} />
         </Grid>
+        <hr style={theme.visibleSeparator} />
+        <Comments comments={comments} />
       </Grid>
     );
 

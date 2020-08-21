@@ -20,7 +20,7 @@ import {
   responsiveFontSizes,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
 // import { unstable_createMuiStrictModeTheme } from '@material-ui/core/styles';
 
 // Pages

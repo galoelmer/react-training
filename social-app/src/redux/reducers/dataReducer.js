@@ -42,6 +42,7 @@ export default function (state = initialState, action) {
       );
       state.screams[index] = action.payload;
       if (state.scream.screamId === action.payload.screamId) {
+        action.payload.comments = state.scream.comments;
         state.scream = action.payload;
       }
       return {

@@ -5,7 +5,7 @@ import { withTheme } from '@material-ui/core/styles';
 
 // Redux
 import { connect } from 'react-redux';
-import { editUserDetails } from '../redux/actions/userActions';
+import { editUserDetails } from '../../redux/actions/userActions';
 
 // Material UI components
 import Button from '@material-ui/core/Button';
