@@ -7,10 +7,11 @@ import { Link } from 'react-router-dom';
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
+import CommentForm from './CommentForm';
 
 // Redux
 import { connect } from 'react-redux';
-import { getScream } from '../../redux/actions/dataActions';
+import { getScream, clearErrors } from '../../redux/actions/dataActions';
 
 // Material UI components
 import Dialog from '@material-ui/core/Dialog';
@@ -59,13 +60,14 @@ class ScreamDialog extends Component {
   };
   handleClose = () => {
     this.setState({ open: false });
+    this.props.clearErrors();
   };
 
   render() {
     const {
       classes,
       theme,
-      scream: { body, createdAt, userImage, userHandle, comments },
+      scream: { body, createdAt, userImage, userHandle, comments, screamId },
       UI: { loading },
     } = this.props;
 
@@ -95,6 +97,7 @@ class ScreamDialog extends Component {
           <LikeButton scream={this.props.scream} />
         </Grid>
         <hr style={theme.visibleSeparator} />
+        <CommentForm screamId={screamId} />
         <Comments comments={comments} />
       </Grid>
     );
@@ -131,6 +134,7 @@ class ScreamDialog extends Component {
 }
 
 ScreamDialog.propTypes = {
+  clearErrors: PropTypes.func.isRequired,
   getScream: PropTypes.func.isRequired,
   screamId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
@@ -145,6 +149,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
   getScream,
+  clearErrors,
 };
 
 export default connect(

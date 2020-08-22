@@ -6,6 +6,7 @@ import {
   LOADING_DATA,
   DELETE_SCREAM,
   POST_SCREAM,
+  SUBMIT_COMMENT,
 } from '../types';
 
 const initialState = {
@@ -42,8 +43,7 @@ export default function (state = initialState, action) {
       );
       state.screams[index] = action.payload;
       if (state.scream.screamId === action.payload.screamId) {
-        action.payload.comments = state.scream.comments;
-        state.scream = action.payload;
+        state.scream = { ...state.scream, ...action.payload };
       }
       return {
         ...state,
@@ -64,6 +64,15 @@ export default function (state = initialState, action) {
       return {
         ...state,
         screams: [action.payload, ...state.screams],
+      };
+
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        scream: {
+          ...state.scream,
+          comments: [action.payload, ...state.scream.comments],
+        },
       };
 
     default:
