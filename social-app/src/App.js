@@ -27,6 +27,7 @@ import Navbar from './components/layout/Navbar';
 import Home from './pages/home';
 import Login from './pages/login';
 import SignUp from './pages/signup';
+import User from './pages/user';
 
 let theme = createMuiTheme({
   palette: {
@@ -83,7 +84,7 @@ let theme = createMuiTheme({
     padding: 20,
   },
   profile: {
-    '& .image-wrapper': {
+    'imageWrapper': {
       textAlign: 'center',
       position: 'relative',
       '& button': {
@@ -92,14 +93,14 @@ let theme = createMuiTheme({
         left: '70%',
       },
     },
-    '& .profile-image': {
+    'profileImage': {
       width: 200,
       height: 200,
       objectFit: 'cover',
       maxWidth: '100%',
       borderRadius: '50%',
     },
-    '& .profile-details': {
+    'profileDetails': {
       textAlign: 'center',
       '& span, svg': {
         verticalAlign: 'middle',
@@ -155,6 +156,7 @@ export class App extends Component {
                 <Route exact path="/" component={Home} />
                 <AuthRoute exact path="/login" component={Login} />
                 <AuthRoute exact path="/signup" component={SignUp} />
+                <Route exact path="/users/:handle" component={User} />
               </Switch>
             </div>
           </Router>
