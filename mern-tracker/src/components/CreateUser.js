@@ -36,11 +36,14 @@ export default function CreateExercise() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (username === '') {
+      setError('Required');
+      return;
+    }
+    
     const data = {
       username,
     };
-
-    console.log(data);
 
     axios
       .post('http://localhost:5000/users/add', data)
@@ -64,6 +67,7 @@ export default function CreateExercise() {
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <FormControl className={classes.formControl} noValidate>
             <TextField
+              required={true}
               fullWidth
               variant="outlined"
               margin="normal"

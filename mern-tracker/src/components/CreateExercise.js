@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -37,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function CreateExercise() {
   const classes = useStyles();
   const [username, setUsername] = useState('');
@@ -44,18 +50,36 @@ export default function CreateExercise() {
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
   const [users, setUsers] = useState(['']);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+    setSuccess(false);
+  };
 
   useEffect(() => {
     axios.get('http://localhost:5000/users').then((res) => {
-      const users = res.data.map((user) => user.username);
-      setUsers((u) => {
-        return [...u, ...users];
-      });
+      if (res.data.length) {
+        const users = res.data.map((user) => user.username);
+        setUsers((u) => {
+          return [...u, ...users];
+        });
+      }
     });
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!username || !description || !duration || !date) {
+      setError(true);
+      setOpen(true);
+      return;
+    }
     const data = {
       username,
       description,
@@ -63,7 +87,22 @@ export default function CreateExercise() {
       date,
     };
 
-    console.log(data);
+    axios
+      .post('http://localhost:5000/exercises/add', data)
+      .then((res) => {
+        console.log('Exercise Log created: ', res.data);
+        setUsername('');
+        setDescription('');
+        setDuration('');
+        setDate(new Date());
+        setSuccess(true);
+        setOpen(true);
+      })
+      .catch((err) => {
+        setError(true);
+        setOpen(true);
+        console.log(err);
+      });
   };
 
   return (
@@ -77,6 +116,7 @@ export default function CreateExercise() {
             <InputLabel htmlFor="selectUsername">Username</InputLabel>
             <Select
               native
+              error={error && !username}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               label="Username"
@@ -96,6 +136,8 @@ export default function CreateExercise() {
             <TextField
               fullWidth
               multiline
+              error={error && !description}
+              helperText={error ? 'Required' : ''}
               variant="outlined"
               margin="normal"
               label="Description"
@@ -116,6 +158,8 @@ export default function CreateExercise() {
               margin="normal"
               label="Duration (in minutes)"
               value={duration}
+              error={error && !duration}
+              helperText={error ? 'Required' : ''}
               onChange={(e) => setDuration(e.target.value)}
               inputProps={{
                 name: 'duration',
@@ -127,12 +171,12 @@ export default function CreateExercise() {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 autoOk
-                disableToolbar
-                variant="inline"
+                disableFuture
                 format="MM/dd/yyyy"
                 margin="normal"
                 id="date-picker-inline"
                 label="Date"
+                maxDate={new Date('2022-01-01')}
                 value={date}
                 onChange={(date) => setDate(date)}
                 KeyboardButtonProps={{
@@ -152,6 +196,20 @@ export default function CreateExercise() {
             Create Exercise Log
           </Button>
         </form>
+        {success && (
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert variant="filled" onClose={handleClose} severity="success">
+              Exercise Log Created Successfully
+            </Alert>
+          </Snackbar>
+        )}
+        {!success && (
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert variant="filled" onClose={handleClose} severity="error">
+              Something went wrong!
+            </Alert>
+          </Snackbar>
+        )}
       </Paper>
     </Container>
   );
