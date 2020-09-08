@@ -6,7 +6,7 @@ import 'firebase/database';
 firebase.initializeApp(config);
 const db = firebase.database();
 
-const App = () => {
+const Posts = () => {
   const [posts, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,7 +18,20 @@ const App = () => {
       setLoading(false);
     });
   }, []);
-  return <div>Hello World</div>;
+
+  return (
+    <div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          {posts.map((post) => {
+            return <div key={post.title}>{post.title}</div>;
+          })}
+        </div>
+      )}
+    </div>
+  );
 };
 
-export default App;
+export default Posts;
