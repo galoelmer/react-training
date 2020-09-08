@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import * as firebase from 'firebase/app';
-import config from './firebase-config';
-import 'firebase/database';
-
-firebase.initializeApp(config);
-const db = firebase.database();
+import db from '../firebase-config';
+import { Link } from 'react-router-dom';
 
 const Posts = () => {
-  const [posts, setPost] = useState([]);
+  const [posts, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,17 +16,23 @@ const Posts = () => {
   }, []);
 
   return (
-    <div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <div>
-          {posts.map((post) => {
-            return <div key={post.title}>{post.title}</div>;
-          })}
-        </div>
-      )}
-    </div>
+    <>
+      <div>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <div>
+            {posts &&
+              Object.keys(posts).map((key) => {
+                return <div key={key}>{posts[key].title}</div>;
+              })}
+          </div>
+        )}
+      </div>
+      <button>
+        <Link to="/add-post">Add Post</Link>
+      </button>
+    </>
   );
 };
 
