@@ -8,7 +8,7 @@ const AddPost = ({ history }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const postRef = db.ref('posts');
-    postRef.push({ title });
+    postRef.push({ title, upvote: 0, downvote: 0 });
     setTitle('');
     history.push('/');
   };
@@ -27,7 +27,7 @@ const AddPost = ({ history }) => {
         </button>
       </form>
       <button>
-          <Link to='/'>Go Home</Link>
+        <Link to="/">Go Home</Link>
       </button>
     </div>
   );
