@@ -13,20 +13,17 @@ const Posts = () => {
       setLoading(false);
     };
     postRef.on('value', onValueChange);
-    return () => {
-      postRef.off('value', onValueChange);
-    };
   }, []);
 
   const handleUpvote = (e) => {
-    let key = e.target.dataset.id;
-    var postRef = db.ref(`posts/${key}/upvote`);
+    const key = e.target.closest('[data-id]').dataset.id;
+    const postRef = db.ref(`posts/${key}/upvote`);
     postRef.transaction((currentUpvote) => currentUpvote + 1);
   };
 
   const handleDownvote = (e) => {
-    let key = e.target.dataset.id;
-    var postRef = db.ref(`posts/${key}/downvote`);
+    const key = e.target.closest('[data-id]').dataset.id;
+    const postRef = db.ref(`posts/${key}/downvote`);
     postRef.transaction((currentDownvote) => currentDownvote + 1);
   };
 
@@ -40,16 +37,12 @@ const Posts = () => {
             {posts &&
               Object.keys(posts).map((key) => {
                 return (
-                  <div key={key}>
+                  <div key={key} data-id={key}>
                     <div>Title: {posts[key].title}</div>
                     <div>Upvotes: {posts[key].upvote}</div>
                     <div>Downvotes: {posts[key].downvote}</div>
-                    <button data-id={key} onClick={handleUpvote}>
-                      Upvote
-                    </button>
-                    <button data-id={key} onClick={handleDownvote}>
-                      Downvote
-                    </button>
+                    <button onClick={handleUpvote}>Upvote</button>
+                    <button onClick={handleDownvote}>Downvote</button>
                   </div>
                 );
               })}
